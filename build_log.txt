@@ -1,0 +1,10 @@
+------------------------------------------------
+Starting SIGNED IPA Build Process for App Store...
+------------------------------------------------
+Step 1: Cleaning...
+Step 2: Archiving project...
+2026-02-05 22:09:39.786 xcodebuild[33933:3577255] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+/Users/Keno/源码/keno/keno.xcodeproj: error: No profile for team 'X4ZJV9JMDU' matching 'keno' found: Xcode couldn't find any provisioning profiles matching 'X4ZJV9JMDU/keno'. Install the profile (by dragging and dropping it onto Xcode's dock item) or select a different one in the Signing & Capabilities tab of the target editor. (in target 'keno' from project 'keno')
+** ARCHIVE FAILED **
+
+Error: Archive failed. Please ensure your 'tongche' provisioning profile is installed in Xcode.

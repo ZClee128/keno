@@ -1,0 +1,730 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		43EFB520B38564990EE27CE2 /* Pods_keno.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8EAD53C3E270DF0F06D46D /* Pods_keno.framework */; };
+		84CFB3662F371D9D00FEE893 /* KENLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3252F371D9D00FEE893 /* KENLoginViewController.swift */; };
+		84CFB3672F371D9D00FEE893 /* KENPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3262F371D9D00FEE893 /* KENPolicyViewController.swift */; };
+		84CFB3682F371D9D00FEE893 /* KENRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3272F371D9D00FEE893 /* KENRegisterViewController.swift */; };
+		84CFB3692F371D9D00FEE893 /* KENChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3292F371D9D00FEE893 /* KENChatDetailViewController.swift */; };
+		84CFB36A2F371D9D00FEE893 /* KENChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB32A2F371D9D00FEE893 /* KENChatListViewController.swift */; };
+		84CFB36B2F371D9D00FEE893 /* KENDiscoveryEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB32C2F371D9D00FEE893 /* KENDiscoveryEnums.swift */; };
+		84CFB36C2F371D9D00FEE893 /* KENDiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB32D2F371D9D00FEE893 /* KENDiscoveryViewController.swift */; };
+		84CFB36D2F371D9D00FEE893 /* KENTagFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB32E2F371D9D00FEE893 /* KENTagFeedViewController.swift */; };
+		84CFB36E2F371D9D00FEE893 /* KENCreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3302F371D9D00FEE893 /* KENCreatePostViewController.swift */; };
+		84CFB36F2F371D9D00FEE893 /* KENFeedEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3312F371D9D00FEE893 /* KENFeedEnums.swift */; };
+		84CFB3702F371D9D00FEE893 /* KENFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3322F371D9D00FEE893 /* KENFeedViewController.swift */; };
+		84CFB3712F371D9D00FEE893 /* KENPostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3332F371D9D00FEE893 /* KENPostDetailViewController.swift */; };
+		84CFB3722F371D9D00FEE893 /* KENStoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3342F371D9D00FEE893 /* KENStoryDetailViewController.swift */; };
+		84CFB3732F371D9D00FEE893 /* KENCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3362F371D9D00FEE893 /* KENCameraViewController.swift */; };
+		84CFB3742F371D9D00FEE893 /* KENTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3372F371D9D00FEE893 /* KENTabBarController.swift */; };
+		84CFB3752F371D9D00FEE893 /* KENCoinStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3392F371D9D00FEE893 /* KENCoinStoreViewController.swift */; };
+		84CFB3762F371D9D00FEE893 /* KENProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB33A2F371D9D00FEE893 /* KENProfileViewController.swift */; };
+		84CFB3772F371D9D00FEE893 /* KENSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB33B2F371D9D00FEE893 /* KENSettingsViewController.swift */; };
+		84CFB3782F371D9D00FEE893 /* KENAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB33E2F371D9D00FEE893 /* KENAuthManager.swift */; };
+		84CFB3792F371D9D00FEE893 /* KENDataSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB33F2F371D9D00FEE893 /* KENDataSeeder.swift */; };
+		84CFB37A2F371D9D00FEE893 /* KENMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3402F371D9D00FEE893 /* KENMessageManager.swift */; };
+		84CFB37B2F371D9D00FEE893 /* KENPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3412F371D9D00FEE893 /* KENPersistenceManager.swift */; };
+		84CFB37C2F371D9D00FEE893 /* KENPostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3422F371D9D00FEE893 /* KENPostManager.swift */; };
+		84CFB37D2F371D9D00FEE893 /* KENMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3442F371D9D00FEE893 /* KENMessage.swift */; };
+		84CFB37E2F371D9D00FEE893 /* KENPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3452F371D9D00FEE893 /* KENPost.swift */; };
+		84CFB37F2F371D9D00FEE893 /* KENUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3462F371D9D00FEE893 /* KENUser.swift */; };
+		84CFB3802F371D9D00FEE893 /* KENCoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3482F371D9D00FEE893 /* KENCoinManager.swift */; };
+		84CFB3812F371D9D00FEE893 /* KENConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB34A2F371D9D00FEE893 /* KENConstants.swift */; };
+		84CFB3822F371D9D00FEE893 /* KENImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB34B2F371D9D00FEE893 /* KENImageLoader.swift */; };
+		84CFB3832F371D9D00FEE893 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB34C2F371D9D00FEE893 /* UIView+Extensions.swift */; };
+		84CFB3842F371D9D00FEE893 /* KENChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB34E2F371D9D00FEE893 /* KENChatListCell.swift */; };
+		84CFB3852F371D9D00FEE893 /* KENMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB34F2F371D9D00FEE893 /* KENMessageCell.swift */; };
+		84CFB3862F371D9D00FEE893 /* KENStoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3512F371D9D00FEE893 /* KENStoriesView.swift */; };
+		84CFB3872F371D9D00FEE893 /* KENPhotoGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3532F371D9D00FEE893 /* KENPhotoGridCell.swift */; };
+		84CFB3882F371D9D00FEE893 /* KENProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3542F371D9D00FEE893 /* KENProfileHeaderView.swift */; };
+		84CFB3892F371D9D00FEE893 /* KENPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3562F371D9D00FEE893 /* KENPostCell.swift */; };
+		84CFB38A2F371D9D00FEE893 /* KENVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3572F371D9D00FEE893 /* KENVideoPlayerView.swift */; };
+		84CFB38B2F371D9D00FEE893 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB35E2F371D9D00FEE893 /* AppDelegate.swift */; };
+		84CFB38C2F371D9D00FEE893 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3642F371D9D00FEE893 /* SceneDelegate.swift */; };
+		84CFB38D2F371D9D00FEE893 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35A2F371D9D00FEE893 /* 1.jpg */; };
+		84CFB38E2F371D9D00FEE893 /* 1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35B2F371D9D00FEE893 /* 1.mp4 */; };
+		84CFB38F2F371D9D00FEE893 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35C2F371D9D00FEE893 /* 2.jpg */; };
+		84CFB3902F371D9D00FEE893 /* 2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35D2F371D9D00FEE893 /* 2.mp4 */; };
+		84CFB3912F371D9D00FEE893 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35F2F371D9D00FEE893 /* Assets.xcassets */; };
+		84CFB3932F371D9D00FEE893 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB3632F371D9D00FEE893 /* LaunchScreen.storyboard */; };
+		84D221D52F28B87B009D2E99 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D221D42F28B87B009D2E99 /* StoreKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		84CFB3252F371D9D00FEE893 /* KENLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENLoginViewController.swift; sourceTree = "<group>"; };
+		84CFB3262F371D9D00FEE893 /* KENPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENPolicyViewController.swift; sourceTree = "<group>"; };
+		84CFB3272F371D9D00FEE893 /* KENRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENRegisterViewController.swift; sourceTree = "<group>"; };
+		84CFB3292F371D9D00FEE893 /* KENChatDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENChatDetailViewController.swift; sourceTree = "<group>"; };
+		84CFB32A2F371D9D00FEE893 /* KENChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENChatListViewController.swift; sourceTree = "<group>"; };
+		84CFB32C2F371D9D00FEE893 /* KENDiscoveryEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENDiscoveryEnums.swift; sourceTree = "<group>"; };
+		84CFB32D2F371D9D00FEE893 /* KENDiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENDiscoveryViewController.swift; sourceTree = "<group>"; };
+		84CFB32E2F371D9D00FEE893 /* KENTagFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENTagFeedViewController.swift; sourceTree = "<group>"; };
+		84CFB3302F371D9D00FEE893 /* KENCreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENCreatePostViewController.swift; sourceTree = "<group>"; };
+		84CFB3312F371D9D00FEE893 /* KENFeedEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENFeedEnums.swift; sourceTree = "<group>"; };
+		84CFB3322F371D9D00FEE893 /* KENFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENFeedViewController.swift; sourceTree = "<group>"; };
+		84CFB3332F371D9D00FEE893 /* KENPostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENPostDetailViewController.swift; sourceTree = "<group>"; };
+		84CFB3342F371D9D00FEE893 /* KENStoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENStoryDetailViewController.swift; sourceTree = "<group>"; };
+		84CFB3362F371D9D00FEE893 /* KENCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENCameraViewController.swift; sourceTree = "<group>"; };
+		84CFB3372F371D9D00FEE893 /* KENTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENTabBarController.swift; sourceTree = "<group>"; };
+		84CFB3392F371D9D00FEE893 /* KENCoinStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENCoinStoreViewController.swift; sourceTree = "<group>"; };
+		84CFB33A2F371D9D00FEE893 /* KENProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENProfileViewController.swift; sourceTree = "<group>"; };
+		84CFB33B2F371D9D00FEE893 /* KENSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENSettingsViewController.swift; sourceTree = "<group>"; };
+		84CFB33E2F371D9D00FEE893 /* KENAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENAuthManager.swift; sourceTree = "<group>"; };
+		84CFB33F2F371D9D00FEE893 /* KENDataSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENDataSeeder.swift; sourceTree = "<group>"; };
+		84CFB3402F371D9D00FEE893 /* KENMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENMessageManager.swift; sourceTree = "<group>"; };
+		84CFB3412F371D9D00FEE893 /* KENPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENPersistenceManager.swift; sourceTree = "<group>"; };
+		84CFB3422F371D9D00FEE893 /* KENPostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENPostManager.swift; sourceTree = "<group>"; };
+		84CFB3442F371D9D00FEE893 /* KENMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENMessage.swift; sourceTree = "<group>"; };
+		84CFB3452F371D9D00FEE893 /* KENPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENPost.swift; sourceTree = "<group>"; };
+		84CFB3462F371D9D00FEE893 /* KENUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENUser.swift; sourceTree = "<group>"; };
+		84CFB3482F371D9D00FEE893 /* KENCoinManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENCoinManager.swift; sourceTree = "<group>"; };
+		84CFB34A2F371D9D00FEE893 /* KENConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENConstants.swift; sourceTree = "<group>"; };
+		84CFB34B2F371D9D00FEE893 /* KENImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENImageLoader.swift; sourceTree = "<group>"; };
+		84CFB34C2F371D9D00FEE893 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		84CFB34E2F371D9D00FEE893 /* KENChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENChatListCell.swift; sourceTree = "<group>"; };
+		84CFB34F2F371D9D00FEE893 /* KENMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENMessageCell.swift; sourceTree = "<group>"; };
+		84CFB3512F371D9D00FEE893 /* KENStoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENStoriesView.swift; sourceTree = "<group>"; };
+		84CFB3532F371D9D00FEE893 /* KENPhotoGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENPhotoGridCell.swift; sourceTree = "<group>"; };
+		84CFB3542F371D9D00FEE893 /* KENProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENProfileHeaderView.swift; sourceTree = "<group>"; };
+		84CFB3562F371D9D00FEE893 /* KENPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENPostCell.swift; sourceTree = "<group>"; };
+		84CFB3572F371D9D00FEE893 /* KENVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KENVideoPlayerView.swift; sourceTree = "<group>"; };
+		84CFB35A2F371D9D00FEE893 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		84CFB35B2F371D9D00FEE893 /* 1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1.mp4; sourceTree = "<group>"; };
+		84CFB35C2F371D9D00FEE893 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		84CFB35D2F371D9D00FEE893 /* 2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2.mp4; sourceTree = "<group>"; };
+		84CFB35E2F371D9D00FEE893 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		84CFB35F2F371D9D00FEE893 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		84CFB3602F371D9D00FEE893 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84CFB3612F371D9D00FEE893 /* keno.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = keno.entitlements; sourceTree = "<group>"; };
+		84CFB3622F371D9D00FEE893 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		84CFB3642F371D9D00FEE893 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		84D221522F287629009D2E99 /* keno.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = keno.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D221D42F28B87B009D2E99 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		AAF056B1A501BCE92C70FAD8 /* Pods-keno.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-keno.release.xcconfig"; path = "Target Support Files/Pods-keno/Pods-keno.release.xcconfig"; sourceTree = "<group>"; };
+		CB6EC88C66CA64699F5C58E2 /* Pods-keno.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-keno.debug.xcconfig"; path = "Target Support Files/Pods-keno/Pods-keno.debug.xcconfig"; sourceTree = "<group>"; };
+		DB8EAD53C3E270DF0F06D46D /* Pods_keno.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_keno.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		84D2214F2F287629009D2E99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84D221D52F28B87B009D2E99 /* StoreKit.framework in Frameworks */,
+				43EFB520B38564990EE27CE2 /* Pods_keno.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		84CFB3282F371D9D00FEE893 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3252F371D9D00FEE893 /* KENLoginViewController.swift */,
+				84CFB3262F371D9D00FEE893 /* KENPolicyViewController.swift */,
+				84CFB3272F371D9D00FEE893 /* KENRegisterViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		84CFB32B2F371D9D00FEE893 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3292F371D9D00FEE893 /* KENChatDetailViewController.swift */,
+				84CFB32A2F371D9D00FEE893 /* KENChatListViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		84CFB32F2F371D9D00FEE893 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB32C2F371D9D00FEE893 /* KENDiscoveryEnums.swift */,
+				84CFB32D2F371D9D00FEE893 /* KENDiscoveryViewController.swift */,
+				84CFB32E2F371D9D00FEE893 /* KENTagFeedViewController.swift */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
+		84CFB3352F371D9D00FEE893 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3302F371D9D00FEE893 /* KENCreatePostViewController.swift */,
+				84CFB3312F371D9D00FEE893 /* KENFeedEnums.swift */,
+				84CFB3322F371D9D00FEE893 /* KENFeedViewController.swift */,
+				84CFB3332F371D9D00FEE893 /* KENPostDetailViewController.swift */,
+				84CFB3342F371D9D00FEE893 /* KENStoryDetailViewController.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		84CFB3382F371D9D00FEE893 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3362F371D9D00FEE893 /* KENCameraViewController.swift */,
+				84CFB3372F371D9D00FEE893 /* KENTabBarController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		84CFB33C2F371D9D00FEE893 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3392F371D9D00FEE893 /* KENCoinStoreViewController.swift */,
+				84CFB33A2F371D9D00FEE893 /* KENProfileViewController.swift */,
+				84CFB33B2F371D9D00FEE893 /* KENSettingsViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		84CFB33D2F371D9D00FEE893 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3282F371D9D00FEE893 /* Auth */,
+				84CFB32B2F371D9D00FEE893 /* Chat */,
+				84CFB32F2F371D9D00FEE893 /* Discovery */,
+				84CFB3352F371D9D00FEE893 /* Feed */,
+				84CFB3382F371D9D00FEE893 /* Main */,
+				84CFB33C2F371D9D00FEE893 /* Profile */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		84CFB3432F371D9D00FEE893 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB33E2F371D9D00FEE893 /* KENAuthManager.swift */,
+				84CFB33F2F371D9D00FEE893 /* KENDataSeeder.swift */,
+				84CFB3402F371D9D00FEE893 /* KENMessageManager.swift */,
+				84CFB3412F371D9D00FEE893 /* KENPersistenceManager.swift */,
+				84CFB3422F371D9D00FEE893 /* KENPostManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		84CFB3472F371D9D00FEE893 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3442F371D9D00FEE893 /* KENMessage.swift */,
+				84CFB3452F371D9D00FEE893 /* KENPost.swift */,
+				84CFB3462F371D9D00FEE893 /* KENUser.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		84CFB3492F371D9D00FEE893 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3482F371D9D00FEE893 /* KENCoinManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		84CFB34D2F371D9D00FEE893 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB34A2F371D9D00FEE893 /* KENConstants.swift */,
+				84CFB34B2F371D9D00FEE893 /* KENImageLoader.swift */,
+				84CFB34C2F371D9D00FEE893 /* UIView+Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		84CFB3502F371D9D00FEE893 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB34E2F371D9D00FEE893 /* KENChatListCell.swift */,
+				84CFB34F2F371D9D00FEE893 /* KENMessageCell.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		84CFB3522F371D9D00FEE893 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3512F371D9D00FEE893 /* KENStoriesView.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		84CFB3552F371D9D00FEE893 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3532F371D9D00FEE893 /* KENPhotoGridCell.swift */,
+				84CFB3542F371D9D00FEE893 /* KENProfileHeaderView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		84CFB3582F371D9D00FEE893 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3502F371D9D00FEE893 /* Chat */,
+				84CFB3522F371D9D00FEE893 /* Feed */,
+				84CFB3552F371D9D00FEE893 /* Profile */,
+				84CFB3562F371D9D00FEE893 /* KENPostCell.swift */,
+				84CFB3572F371D9D00FEE893 /* KENVideoPlayerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		84CFB3592F371D9D00FEE893 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB33D2F371D9D00FEE893 /* Controllers */,
+				84CFB3432F371D9D00FEE893 /* Managers */,
+				84CFB3472F371D9D00FEE893 /* Models */,
+				84CFB3492F371D9D00FEE893 /* Services */,
+				84CFB34D2F371D9D00FEE893 /* Utils */,
+				84CFB3582F371D9D00FEE893 /* Views */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		84CFB3652F371D9D00FEE893 /* keno */ = {
+			isa = PBXGroup;
+			children = (
+				84CFB3592F371D9D00FEE893 /* Source */,
+				84CFB35A2F371D9D00FEE893 /* 1.jpg */,
+				84CFB35B2F371D9D00FEE893 /* 1.mp4 */,
+				84CFB35C2F371D9D00FEE893 /* 2.jpg */,
+				84CFB35D2F371D9D00FEE893 /* 2.mp4 */,
+				84CFB35E2F371D9D00FEE893 /* AppDelegate.swift */,
+				84CFB35F2F371D9D00FEE893 /* Assets.xcassets */,
+				84CFB3602F371D9D00FEE893 /* Info.plist */,
+				84CFB3612F371D9D00FEE893 /* keno.entitlements */,
+				84CFB3632F371D9D00FEE893 /* LaunchScreen.storyboard */,
+				84CFB3642F371D9D00FEE893 /* SceneDelegate.swift */,
+			);
+			path = keno;
+			sourceTree = "<group>";
+		};
+		84D221492F287629009D2E99 = {
+			isa = PBXGroup;
+			children = (
+				84CFB3652F371D9D00FEE893 /* keno */,
+				84D221D32F28B87B009D2E99 /* Frameworks */,
+				84D221532F287629009D2E99 /* Products */,
+				B5E1F7D62CE66D0296BF353F /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		84D221532F287629009D2E99 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84D221522F287629009D2E99 /* keno.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		84D221D32F28B87B009D2E99 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84D221D42F28B87B009D2E99 /* StoreKit.framework */,
+				DB8EAD53C3E270DF0F06D46D /* Pods_keno.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B5E1F7D62CE66D0296BF353F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CB6EC88C66CA64699F5C58E2 /* Pods-keno.debug.xcconfig */,
+				AAF056B1A501BCE92C70FAD8 /* Pods-keno.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		84D221512F287629009D2E99 /* keno */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84D221652F28762A009D2E99 /* Build configuration list for PBXNativeTarget "keno" */;
+			buildPhases = (
+				6DC7EFEA404052D87F7043E3 /* [CP] Check Pods Manifest.lock */,
+				84D2214E2F287629009D2E99 /* Sources */,
+				84D2214F2F287629009D2E99 /* Frameworks */,
+				84D221502F287629009D2E99 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = keno;
+			productName = keno;
+			productReference = 84D221522F287629009D2E99 /* keno.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		84D2214A2F287629009D2E99 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					84D221512F287629009D2E99 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+				};
+			};
+			buildConfigurationList = 84D2214D2F287629009D2E99 /* Build configuration list for PBXProject "keno" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 84D221492F287629009D2E99;
+			productRefGroup = 84D221532F287629009D2E99 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				84D221512F287629009D2E99 /* keno */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		84D221502F287629009D2E99 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84CFB38D2F371D9D00FEE893 /* 1.jpg in Resources */,
+				84CFB38E2F371D9D00FEE893 /* 1.mp4 in Resources */,
+				84CFB38F2F371D9D00FEE893 /* 2.jpg in Resources */,
+				84CFB3902F371D9D00FEE893 /* 2.mp4 in Resources */,
+				84CFB3912F371D9D00FEE893 /* Assets.xcassets in Resources */,
+				84CFB3932F371D9D00FEE893 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6DC7EFEA404052D87F7043E3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-keno-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		84D2214E2F287629009D2E99 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84CFB3662F371D9D00FEE893 /* KENLoginViewController.swift in Sources */,
+				84CFB3672F371D9D00FEE893 /* KENPolicyViewController.swift in Sources */,
+				84CFB3682F371D9D00FEE893 /* KENRegisterViewController.swift in Sources */,
+				84CFB3692F371D9D00FEE893 /* KENChatDetailViewController.swift in Sources */,
+				84CFB36A2F371D9D00FEE893 /* KENChatListViewController.swift in Sources */,
+				84CFB36B2F371D9D00FEE893 /* KENDiscoveryEnums.swift in Sources */,
+				84CFB36C2F371D9D00FEE893 /* KENDiscoveryViewController.swift in Sources */,
+				84CFB36D2F371D9D00FEE893 /* KENTagFeedViewController.swift in Sources */,
+				84CFB36E2F371D9D00FEE893 /* KENCreatePostViewController.swift in Sources */,
+				84CFB36F2F371D9D00FEE893 /* KENFeedEnums.swift in Sources */,
+				84CFB3702F371D9D00FEE893 /* KENFeedViewController.swift in Sources */,
+				84CFB3712F371D9D00FEE893 /* KENPostDetailViewController.swift in Sources */,
+				84CFB3722F371D9D00FEE893 /* KENStoryDetailViewController.swift in Sources */,
+				84CFB3732F371D9D00FEE893 /* KENCameraViewController.swift in Sources */,
+				84CFB3742F371D9D00FEE893 /* KENTabBarController.swift in Sources */,
+				84CFB3752F371D9D00FEE893 /* KENCoinStoreViewController.swift in Sources */,
+				84CFB3762F371D9D00FEE893 /* KENProfileViewController.swift in Sources */,
+				84CFB3772F371D9D00FEE893 /* KENSettingsViewController.swift in Sources */,
+				84CFB3782F371D9D00FEE893 /* KENAuthManager.swift in Sources */,
+				84CFB3792F371D9D00FEE893 /* KENDataSeeder.swift in Sources */,
+				84CFB37A2F371D9D00FEE893 /* KENMessageManager.swift in Sources */,
+				84CFB37B2F371D9D00FEE893 /* KENPersistenceManager.swift in Sources */,
+				84CFB37C2F371D9D00FEE893 /* KENPostManager.swift in Sources */,
+				84CFB37D2F371D9D00FEE893 /* KENMessage.swift in Sources */,
+				84CFB37E2F371D9D00FEE893 /* KENPost.swift in Sources */,
+				84CFB37F2F371D9D00FEE893 /* KENUser.swift in Sources */,
+				84CFB3802F371D9D00FEE893 /* KENCoinManager.swift in Sources */,
+				84CFB3812F371D9D00FEE893 /* KENConstants.swift in Sources */,
+				84CFB3822F371D9D00FEE893 /* KENImageLoader.swift in Sources */,
+				84CFB3832F371D9D00FEE893 /* UIView+Extensions.swift in Sources */,
+				84CFB3842F371D9D00FEE893 /* KENChatListCell.swift in Sources */,
+				84CFB3852F371D9D00FEE893 /* KENMessageCell.swift in Sources */,
+				84CFB3862F371D9D00FEE893 /* KENStoriesView.swift in Sources */,
+				84CFB3872F371D9D00FEE893 /* KENPhotoGridCell.swift in Sources */,
+				84CFB3882F371D9D00FEE893 /* KENProfileHeaderView.swift in Sources */,
+				84CFB3892F371D9D00FEE893 /* KENPostCell.swift in Sources */,
+				84CFB38A2F371D9D00FEE893 /* KENVideoPlayerView.swift in Sources */,
+				84CFB38B2F371D9D00FEE893 /* AppDelegate.swift in Sources */,
+				84CFB38C2F371D9D00FEE893 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		84CFB3632F371D9D00FEE893 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84CFB3622F371D9D00FEE893 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		84D221662F28762A009D2E99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB6EC88C66CA64699F5C58E2 /* Pods-keno.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = keno/keno.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = X4ZJV9JMDU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = keno/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.keno.com;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = keno;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		84D221672F28762A009D2E99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAF056B1A501BCE92C70FAD8 /* Pods-keno.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = keno/keno.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = X4ZJV9JMDU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = keno/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.keno.com;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = keno;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		84D221682F28762A009D2E99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		84D221692F28762A009D2E99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		84D2214D2F287629009D2E99 /* Build configuration list for PBXProject "keno" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84D221682F28762A009D2E99 /* Debug */,
+				84D221692F28762A009D2E99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84D221652F28762A009D2E99 /* Build configuration list for PBXNativeTarget "keno" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84D221662F28762A009D2E99 /* Debug */,
+				84D221672F28762A009D2E99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 84D2214A2F287629009D2E99 /* Project object */;
+}
