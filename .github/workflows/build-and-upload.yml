@@ -13,11 +13,6 @@ env:
   # 构建配置
   CONFIGURATION: "Release"
   XCODE_VERSION: "latest-stable"
-  
-  # Archive和IPA路径（通常不需要修改）
-  ARCHIVE_PATH: "${{ runner.temp }}/app.xcarchive"
-  EXPORT_PATH: "${{ runner.temp }}/export"
-  EXPORT_OPTIONS_PATH: "${{ runner.temp }}/ExportOptions.plist"
 
 on:
   # 手动触发
@@ -43,6 +38,12 @@ jobs:
   build:
     name: Build iOS App
     runs-on: macos-latest  # 使用GitHub提供的macOS虚拟机
+    
+    env:
+      # Archive和IPA路径（通常不需要修改）
+      ARCHIVE_PATH: "$RUNNER_TEMP/app.xcarchive"
+      EXPORT_PATH: "$RUNNER_TEMP/export"
+      EXPORT_OPTIONS_PATH: "$RUNNER_TEMP/ExportOptions.plist"
     
     steps:
       - name: 📥 Checkout代码
