@@ -5,7 +5,7 @@
 ### 1. 安装依赖
 
 ```bash
-cd /Users/Keno/源码/keno
+cd /Users/Keno/源码/wldo
 pip3 install Pillow
 ```
 
