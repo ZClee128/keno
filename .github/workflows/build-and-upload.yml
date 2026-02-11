@@ -108,6 +108,10 @@ jobs:
           UUID=$(strings "$PROVISION_PATH" | grep -A1 "<key>UUID</key>" | tail -n1 | sed 's/.*<string>\(.*\)<\/string>.*/\1/')
           echo "使用Provisioning Profile UUID: $UUID"
           
+          # 直接修改工程文件中的Provisioning Profile，避免xcodebuild全局参数导致Pods报错
+          echo "修改project.pbxproj..."
+          sed -i '' "s/\"PROVISIONING_PROFILE_SPECIFIER\[sdk=iphoneos\*\]\" = wldo;/\"PROVISIONING_PROFILE_SPECIFIER\[sdk=iphoneos\*\]\" = \"$UUID\";/g" keno.xcodeproj/project.pbxproj
+          
           xcodebuild archive \
             -workspace ${{ env.WORKSPACE_NAME }} \
             -scheme ${{ env.SCHEME_NAME }} \
@@ -116,8 +120,7 @@ jobs:
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates \
             CODE_SIGN_IDENTITY="Apple Distribution" \
-            DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
-            PROVISIONING_PROFILE_SPECIFIER="$UUID"
+            DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}"
           
           # 验证archive是否创建成功
           if [ -d "${{ env.ARCHIVE_PATH }}" ]; then
