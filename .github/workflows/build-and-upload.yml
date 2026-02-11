@@ -103,6 +103,11 @@ jobs:
         run: |
           echo "开始构建Archive..."
           
+          # 获取Provisioning Profile UUID
+          PROVISION_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          UUID=$(strings "$PROVISION_PATH" | grep -A1 "<key>UUID</key>" | tail -n1 | sed 's/.*<string>\(.*\)<\/string>.*/\1/')
+          echo "使用Provisioning Profile UUID: $UUID"
+          
           xcodebuild archive \
             -workspace ${{ env.WORKSPACE_NAME }} \
             -scheme ${{ env.SCHEME_NAME }} \
@@ -111,7 +116,8 @@ jobs:
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates \
             CODE_SIGN_IDENTITY="Apple Distribution" \
-            DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}"
+            DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
+            PROVISIONING_PROFILE_SPECIFIER="$UUID"
           
           # 验证archive是否创建成功
           if [ -d "${{ env.ARCHIVE_PATH }}" ]; then
