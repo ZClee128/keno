@@ -107,6 +107,7 @@ jobs:
           PROVISION_PATH=$RUNNER_TEMP/build_pp.mobileprovision
           UUID=$(strings "$PROVISION_PATH" | grep -A1 "<key>UUID</key>" | tail -n1 | sed 's/.*<string>\(.*\)<\/string>.*/\1/')
           echo "使用Provisioning Profile UUID: $UUID"
+          echo "PROVISIONING_PROFILE_UUID=$UUID" >> $GITHUB_ENV
           
           # 直接修改工程文件中的Provisioning Profile，避免xcodebuild全局参数导致Pods报错
           echo "修改project.pbxproj..."
@@ -140,7 +141,7 @@ jobs:
           <plist version="1.0">
           <dict>
               <key>method</key>
-              <string>app-store</string>
+              <string>app-store-connect</string>
               <key>uploadBitcode</key>
               <false/>
               <key>uploadSymbols</key>
@@ -149,17 +150,13 @@ jobs:
               <false/>
               <key>stripSwiftSymbols</key>
               <true/>
-              <key>teamID</key>
-              <string>${{ secrets.TEAM_ID }}</string>
+              <key>signingStyle</key>
+              <string>manual</string>
               <key>provisioningProfiles</key>
               <dict>
                   <key>${{ env.BUNDLE_ID }}</key>
-                  <string>${{ env.PROVISIONING_PROFILE_NAME }}</string>
+                  <string>${{ env.PROVISIONING_PROFILE_UUID }}</string>
               </dict>
-              <key>signingCertificate</key>
-              <string>Apple Distribution</string>
-              <key>signingStyle</key>
-              <string>manual</string>
           </dict>
           </plist>
           EOF
