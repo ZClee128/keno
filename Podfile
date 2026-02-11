@@ -1,6 +1,6 @@
 platform :ios, '13.0'
 
-target 'keno' do
+target 'wldo' do
   use_frameworks!
 
 #  pod 'WebViewJavascriptBridge', :git => 'https://github.com/stury/WebViewJavascriptBridge.git', :branch => 'master'
