@@ -6,9 +6,9 @@ name: Build and Upload to App Store
 env:
   # 项目配置
   WORKSPACE_NAME: "keno.xcworkspace"
-  SCHEME_NAME: "keno"
+  SCHEME_NAME: "wldo"
   BUNDLE_ID: "com.keno.com"
-  PROVISIONING_PROFILE_NAME: "keno"
+  PROVISIONING_PROFILE_NAME: "wldo"
   
   # 构建配置
   CONFIGURATION: "Release"
