@@ -44,7 +44,7 @@ class WLDFeedViewController: UIViewController, UICollectionViewDataSource, UICol
 //        navigationItem.leftBarButtonItem = cameraBtn
         navigationItem.rightBarButtonItem = chatBtn
         
-        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.reptileGreen
+        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.lifestyleAccent
     }
     
     private func setupCollectionView() {

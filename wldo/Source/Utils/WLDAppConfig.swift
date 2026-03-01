@@ -2,9 +2,9 @@ import UIKit
 
 struct WLDAppConfig {
     struct Colors {
-        static let reptileGreen = UIColor(red: 0.13, green: 0.55, blue: 0.13, alpha: 1.00) // #218C21
-        static let accentGreen = UIColor(red: 0.20, green: 0.70, blue: 0.30, alpha: 1.00) // Lighter Green
-        static let darkScale = UIColor(red: 0.11, green: 0.11, blue: 0.13, alpha: 1.00) // #1C1C21
+        static let lifestyleAccent = UIColor(red: 0.61, green: 0.53, blue: 0.45, alpha: 1.00) // Aesthetic Warm Taupe/Brown
+        static let accentGreen = UIColor(red: 0.72, green: 0.65, blue: 0.58, alpha: 1.00) // Lighter Taupe
+        static let darkScale = UIColor(red: 0.15, green: 0.13, blue: 0.12, alpha: 1.00) // Dark Brown/Charcoal
         
         static let background = UIColor(red: 0.96, green: 0.97, blue: 0.98, alpha: 1.00) // Soft Gray-Blue
         static let cardBackground = UIColor.white

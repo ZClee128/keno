@@ -7,7 +7,7 @@ class WLDCreatePostViewController: UIViewController, UITextViewDelegate, UIImage
     private let textView: UITextView = {
         let tv = UITextView()
         tv.font = WLDAppConfig.Fonts.regular(size: 16)
-        tv.text = "Share something about your reptile..."
+        tv.text = "Share your lifestyle moments..."
         tv.textColor = .lightGray
         tv.backgroundColor = .systemGray6
         tv.layer.cornerRadius = 8
@@ -19,7 +19,7 @@ class WLDCreatePostViewController: UIViewController, UITextViewDelegate, UIImage
         let iv = UIImageView()
         iv.backgroundColor = .systemGray5
         iv.image = UIImage(systemName: "photo.badge.plus")
-        iv.tintColor = WLDAppConfig.Colors.reptileGreen
+        iv.tintColor = WLDAppConfig.Colors.lifestyleAccent
         iv.contentMode = .center
         iv.isUserInteractionEnabled = true
         iv.layer.cornerRadius = 8

@@ -21,7 +21,7 @@ class WLDLoginView: UIViewController, UITextFieldDelegate, UIGestureRecognizerDe
     private let agreementButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "square"), for: .normal)
-        btn.tintColor = WLDAppConfig.Colors.reptileGreen
+        btn.tintColor = WLDAppConfig.Colors.lifestyleAccent
         return btn
     }()
     
@@ -107,7 +107,7 @@ class WLDLoginView: UIViewController, UITextFieldDelegate, UIGestureRecognizerDe
         // Logo
         logoLabel.text = "WLDO"
         logoLabel.font = UIFont.systemFont(ofSize: 48, weight: .heavy)
-        logoLabel.textColor = WLDAppConfig.Colors.reptileGreen
+        logoLabel.textColor = WLDAppConfig.Colors.lifestyleAccent
         logoLabel.textAlignment = .center
         
         contentView.addSubview(logoLabel)
@@ -178,7 +178,7 @@ class WLDLoginView: UIViewController, UITextFieldDelegate, UIGestureRecognizerDe
         
         // Button
         loginButton.setTitle("LOGIN / REGISTER", for: .normal)
-        loginButton.backgroundColor = WLDAppConfig.Colors.reptileGreen
+        loginButton.backgroundColor = WLDAppConfig.Colors.lifestyleAccent
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         loginButton.layer.cornerRadius = 12
@@ -220,7 +220,7 @@ class WLDLoginView: UIViewController, UITextFieldDelegate, UIGestureRecognizerDe
 
         let linkRange = (text as NSString).range(of: "Terms of Service and Privacy Policy")
         attributed.addAttribute(.link, value: "wldo://terms", range: linkRange)
-        attributed.addAttribute(.foregroundColor, value: WLDAppConfig.Colors.reptileGreen, range: linkRange)
+        attributed.addAttribute(.foregroundColor, value: WLDAppConfig.Colors.lifestyleAccent, range: linkRange)
         attributed.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: linkRange)
 
         agreementTextView.attributedText = attributed

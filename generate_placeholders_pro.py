@@ -11,28 +11,28 @@ OUTPUT_DIR = "./generated_avatars_v2"
 IMAGE_WIDTH = 400
 IMAGE_HEIGHT = 600
 
-# 专业配色方案
+# 专业配色方案 (Aesthetic Lifestyle)
 PLACEHOLDER_CONFIGS = [
     {
         "name": "placeholder_reptile_1",
-        "colors": ["#2d5016", "#77ab59", "#a4d65e"],  # 森林绿
-        "pattern": "scales",
-        "emoji": "🦎",
-        "title": "GECKO"
+        "colors": ["#8C7861", "#A6927B", "#C0AFA0"],  # Warm Latte
+        "pattern": "gradient",
+        "emoji": "☕️",
+        "title": "COFFEE"
     },
     {
         "name": "placeholder_reptile_2", 
-        "colors": ["#f57c00", "#ffb74d", "#ffe0b2"],  # 温暖橙
+        "colors": ["#728775", "#8E9E8F", "#A9B6AA"],  # Sage Green 
         "pattern": "gradient",
-        "emoji": "🐍",
-        "title": "PYTHON"
+        "emoji": "🪴",
+        "title": "NATURE"
     },
     {
         "name": "placeholder_reptile_3",
-        "colors": ["#0277bd", "#4fc3f7", "#81d4fa"],  # 海洋蓝
+        "colors": ["#B39A86", "#CBB5A1", "#E2CCB8"],  # Soft Neutral
         "pattern": "gradient",
-        "emoji": "🐢",
-        "title": "TURTLE"
+        "emoji": "📖",
+        "title": "READ"
     },
 ]
 

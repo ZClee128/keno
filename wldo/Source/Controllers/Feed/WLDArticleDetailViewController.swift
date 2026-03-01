@@ -69,7 +69,7 @@ class WLDArticleDetailViewController: UIViewController {
         let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
         let moreBtn = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(didTapMore))
         navigationItem.rightBarButtonItems = [moreBtn, shareBtn]
-        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.reptileGreen
+        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.lifestyleAccent
     }
     
     @objc private func didTapShare() {

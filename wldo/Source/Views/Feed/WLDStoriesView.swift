@@ -8,7 +8,7 @@ class WLDStoriesView: UIView, UICollectionViewDataSource, UICollectionViewDelega
     
     weak var delegate: WLDStoriesViewDelegate?
     private var collectionView: UICollectionView!
-    private let stories = ["ReptileFan", "Snake", "ChameleonCham", "TurtlePower", "BeardedBuddy"]
+    private let stories = ["CafeHopper", "YogaDaily", "PlantParent", "BookLover", "MinimalistLife"]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,7 +60,7 @@ class WLDStoryCell: UICollectionViewCell {
         iv.clipsToBounds = true
         iv.layer.cornerRadius = 32
         iv.layer.borderWidth = 3
-        iv.layer.borderColor = WLDAppConfig.Colors.reptileGreen.cgColor
+        iv.layer.borderColor = WLDAppConfig.Colors.lifestyleAccent.cgColor
         iv.backgroundColor = WLDAppConfig.Colors.sand
         return iv
     }()
@@ -107,7 +107,7 @@ class WLDStoryCell: UICollectionViewCell {
             imageView.tintColor = .gray
             imageView.contentMode = .center
         } else {
-            imageView.layer.borderColor = WLDAppConfig.Colors.reptileGreen.cgColor
+            imageView.layer.borderColor = WLDAppConfig.Colors.lifestyleAccent.cgColor
             imageView.contentMode = .scaleAspectFill // Use local avatar instead of external API
              WLDBitmapFetcher.shared.loadImage(from: "avatar_\(name.lowercased())") { [weak self] image in
                 self?.imageView.image = image

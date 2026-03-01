@@ -54,7 +54,7 @@ class WLDChatItemCell: UITableViewCell {
         messageLabel.text = text
         
         if isOutgoing {
-            bubbleView.backgroundColor = WLDAppConfig.Colors.reptileGreen
+            bubbleView.backgroundColor = WLDAppConfig.Colors.lifestyleAccent
             messageLabel.textColor = .white
             leadingConstraint.isActive = false
             trailingConstraint.isActive = true

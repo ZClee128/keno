@@ -30,7 +30,7 @@ class WLDChatDetailViewController: UIViewController, UITableViewDataSource, UITa
     private let sendButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
-        button.tintColor = WLDAppConfig.Colors.reptileGreen
+        button.tintColor = WLDAppConfig.Colors.lifestyleAccent
         return button
     }()
     
@@ -48,7 +48,7 @@ class WLDChatDetailViewController: UIViewController, UITableViewDataSource, UITa
     private func setupNavBar() {
         let moreBtn = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(didTapMore))
         navigationItem.rightBarButtonItem = moreBtn
-        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.reptileGreen
+        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.lifestyleAccent
     }
     
     @objc private func didTapMore() {

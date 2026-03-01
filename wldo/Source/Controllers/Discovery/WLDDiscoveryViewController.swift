@@ -191,7 +191,7 @@ class WLDDiscoveryViewController: UIViewController, UICollectionViewDataSource, 
         
         // Sample distributions
         spotlightPosts = Array(allPosts.prefix(5))
-        vibes = ["#DANCE", "#STREET", "#KRUMP", "#POPPING", "#LOCKING", "#BREAKING", "#JAZZ", "#BALLET", "#CONTEMPORARY", "#HIPHOP", "#LATIN", "#TAP", "#KPOP", "#CHOREO", "#FREESTYLE"]
+        vibes = ["#CoffeeTime", "#OOTD", "#SelfCare", "#Yoga", "#Reading", "#HealthyEats", "#HomeDecor", "#Mindfulness", "#TravelDiaris", "#SlowLiving"]
         editorialPosts = allPosts
         
         collectionView.reloadData()
@@ -259,7 +259,7 @@ class WLDDiscoveryCapsuleCell: UICollectionViewCell {
         contentView.backgroundColor = WLDAppConfig.Colors.cardBackground
         contentView.layer.cornerRadius = 20
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = WLDAppConfig.Colors.reptileGreen.withAlphaComponent(0.3).cgColor
+        contentView.layer.borderColor = WLDAppConfig.Colors.lifestyleAccent.withAlphaComponent(0.3).cgColor
         
         contentView.addSubview(label)
         label.pin(to: contentView, insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
@@ -276,7 +276,7 @@ class WLDDiscoveryCapsuleCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             UIView.animate(withDuration: 0.3) {
-                self.contentView.backgroundColor = self.isSelected ? WLDAppConfig.Colors.reptileGreen : WLDAppConfig.Colors.cardBackground
+                self.contentView.backgroundColor = self.isSelected ? WLDAppConfig.Colors.lifestyleAccent : WLDAppConfig.Colors.cardBackground
                 self.label.textColor = self.isSelected ? .black : WLDAppConfig.Colors.textPrimary
             }
         }

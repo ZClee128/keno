@@ -21,21 +21,21 @@ WLDO - Terms of Service and Privacy Policy
 
 Last Updated: January 2026
 
-Welcome to WLDO! Explore the world of reptiles responsibly and enjoy the community.
+Welcome to Keno! Share your aesthetic lifestyle moments thoughtfully and enjoy the community.
 
 1. Terms of Service
 
 1. Service Description
-WLDO is a reptile sharing social platform where users can post photos/videos of their pets, share care tips, and connect with other enthusiasts.
+Keno is a lifestyle sharing social platform where users can post photos/videos of their daily lives, share wellness tips, and connect with other enthusiasts.
 
 2. User Conduct
-- Content must be reptile-related and respectful.
+- Content should revolve around your daily lifestyle and be respectful.
 - No hate speech, harassment, or inappropriate content.
 - Respect copyright, especially regarding photos and videos.
 - Be authentic and supportive in your interactions.
 
 3. User Generated Content
-- You own your content, but you grant WLDO license to display them.
+- You own your content, but you grant Keno license to display them.
 - We may remove content that violates our community guidelines.
 
 4. Account Security
@@ -52,7 +52,7 @@ We collect:
 
 2. Information Usage
 - To connect you with other users
-- To show relevant reptile content
+- To show relevant lifestyle content
 - To ensure platform safety
 
 3. Sharing
@@ -62,7 +62,7 @@ We collect:
 4. Contact
 Email: support@wldo.app
 
-Thank you for joining WLDO!
+Thank you for joining Keno!
 """
         case .privacy:
             return """
@@ -90,7 +90,7 @@ By continuing, you confirm you have read and agree to this Privacy Policy.
 """
         case .community:
             return """
-Keep WLDO safe and welcoming:
+Keep Keno safe and welcoming:
 
 1) Be Respectful
 - No hate, harassment, or bullying.
@@ -105,7 +105,7 @@ Keep WLDO safe and welcoming:
 - No violence, sexual content, or dangerous behavior.
 - Zero tolerance for exploiting or endangering minors.
 
-Let’s build a positive reptile community together.
+Let's build a positive lifestyle community together.
 """
         }
     }
@@ -140,7 +140,7 @@ class WLDPolicyViewController: UIViewController {
         title = type.title
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(close))
-        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.reptileGreen
+        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.lifestyleAccent
 
         textView.text = type.content
         view.addSubview(textView)

@@ -13,7 +13,7 @@ class WLDCoinStoreViewController: UIViewController, UICollectionViewDataSource, 
     private let balanceLabel: UILabel = {
         let label = UILabel()
         label.font = WLDAppConfig.Fonts.header(size: 32)
-        label.textColor = WLDAppConfig.Colors.reptileGreen
+        label.textColor = WLDAppConfig.Colors.lifestyleAccent
         label.textAlignment = .center
         return label
     }()
@@ -108,7 +108,7 @@ class WLDCoinCell: UICollectionViewCell {
         
         priceButton.translatesAutoresizingMaskIntoConstraints = false
         priceButton.setTitleColor(.white, for: .normal)
-        priceButton.backgroundColor = WLDAppConfig.Colors.reptileGreen
+        priceButton.backgroundColor = WLDAppConfig.Colors.lifestyleAccent
         priceButton.layer.cornerRadius = 20
         priceButton.isUserInteractionEnabled = false // Tap cell instead
         

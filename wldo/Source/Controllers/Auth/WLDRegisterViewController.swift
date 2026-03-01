@@ -6,7 +6,7 @@ class WLDRegisterViewController: UIViewController {
         let label = UILabel()
         label.text = "Join WLDO"
         label.font = WLDAppConfig.Fonts.heavy(size: 32)
-        label.textColor = WLDAppConfig.Colors.reptileGreen
+        label.textColor = WLDAppConfig.Colors.lifestyleAccent
         label.textAlignment = .center
         return label
     }()
@@ -39,7 +39,7 @@ class WLDRegisterViewController: UIViewController {
     private let signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
-        button.backgroundColor = WLDAppConfig.Colors.reptileGreen
+        button.backgroundColor = WLDAppConfig.Colors.lifestyleAccent
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
         button.titleLabel?.font = WLDAppConfig.Fonts.medium(size: 18)

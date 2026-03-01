@@ -31,7 +31,7 @@ class WLDMainTab: UITabBarController {
     }
     
     private func setupAppearance() {
-        tabBar.tintColor = WLDAppConfig.Colors.reptileGreen
+        tabBar.tintColor = WLDAppConfig.Colors.lifestyleAccent
         tabBar.unselectedItemTintColor = .systemGray
         tabBar.backgroundColor = .white
     }
