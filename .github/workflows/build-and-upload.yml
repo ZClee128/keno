@@ -258,17 +258,20 @@ jobs:
           
           echo "🚀 开始自动提交审核..."
           
-          # 写入 API Key 文件
-          API_KEY_PATH=$RUNNER_TEMP/asc_api_key.p8
-          echo "$ASC_PRIVATE_KEY" > $API_KEY_PATH
+          # 写入 API Key 文件（altool 要求固定目录和命名格式）
+          PRIVATE_KEYS_DIR="$HOME/.appstoreconnect/private_keys"
+          mkdir -p "$PRIVATE_KEYS_DIR"
+          API_KEY_PATH="$PRIVATE_KEYS_DIR/AuthKey_${ASC_KEY_ID}.p8"
+          echo "$ASC_PRIVATE_KEY" > "$API_KEY_PATH"
+          chmod 600 "$API_KEY_PATH"
           
           # 安装 Fastlane
           echo "安装 Fastlane..."
           gem install fastlane --quiet --no-document
           
-          # 使用 Fastlane deliver 提审
-          # skip_binary_upload:true 表示不重复上传，只对已上传版本提审
-          bundle exec fastlane run deliver \
+          # 直接调用 fastlane（非 bundle exec，无需 Gemfile）
+          # skip_binary_upload:true 不重复上传，只对已上传版本提审
+          fastlane run deliver \
             submit_for_review:true \
             automatic_release:false \
             force:true \
@@ -279,7 +282,7 @@ jobs:
             skip_metadata:true \
             precheck_default_rule_level:":off"
           
-          rm -f $API_KEY_PATH
+          rm -f "$API_KEY_PATH"
           
           echo "✅ 已成功提交审核！"
           echo "   请登录 App Store Connect 查看审核状态："
