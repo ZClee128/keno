@@ -209,8 +209,14 @@ jobs:
           # ── 方式一：App Store Connect API Key（推荐，支持自动提审）──
           if [ -n "$ASC_KEY_ID" ] && [ -n "$ASC_ISSUER_ID" ] && [ -n "$ASC_PRIVATE_KEY" ]; then
             echo "使用 App Store Connect API Key 上传..."
-            API_KEY_PATH=$RUNNER_TEMP/asc_api_key.p8
-            echo "$ASC_PRIVATE_KEY" > $API_KEY_PATH
+            
+            # altool 只在固定目录查找 p8 文件，文件名必须是 AuthKey_<KEY_ID>.p8
+            PRIVATE_KEYS_DIR="$HOME/.appstoreconnect/private_keys"
+            mkdir -p "$PRIVATE_KEYS_DIR"
+            API_KEY_PATH="$PRIVATE_KEYS_DIR/AuthKey_${ASC_KEY_ID}.p8"
+            echo "$ASC_PRIVATE_KEY" > "$API_KEY_PATH"
+            chmod 600 "$API_KEY_PATH"
+            echo "API Key 已写入: $API_KEY_PATH"
             
             xcrun altool --upload-app \
               --file "$IPA_FILE" \
