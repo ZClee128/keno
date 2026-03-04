@@ -292,6 +292,8 @@ jobs:
             skip_binary_upload:true \
             skip_screenshots:true \
             skip_metadata:true \
+            run_precheck_before_submit:false \
+            precheck_include_in_app_purchases:false \
             precheck_default_rule_level:":off"
           
           rm -f "$ASC_JSON_PATH"
