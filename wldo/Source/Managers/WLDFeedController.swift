@@ -30,13 +30,15 @@ class WLDFeedController {
         let blocked = WLDAuthService.shared.blockedUsers
         let filtered = posts.filter { !blocked.contains($0.username) }
         
-        // Prioritize videos: videos first, then others. Maintain original order within groups.
-        return filtered.sorted { (p1, p2) -> Bool in
-            let v1 = p1.videoName != nil
-            let v2 = p2.videoName != nil
-            if v1 == v2 { return false } // Keep relative order
-            return v1 && !v2 // v1 comes first if it's a video and v2 isn't
+        // Prioritize videos: videos first, then others. Maintain stable original order within groups.
+        let indexed = filtered.enumerated().map { ($0.offset, $0.element) }
+        let sorted = indexed.sorted { a, b in
+            let aIsVideo = a.1.videoName != nil && !(a.1.videoName!.isEmpty)
+            let bIsVideo = b.1.videoName != nil && !(b.1.videoName!.isEmpty)
+            if aIsVideo != bIsVideo { return aIsVideo } // video first
+            return a.0 < b.0 // stable order within same group
         }
+        return sorted.map { $0.1 }
     }
     
     func addPost(image: UIImage, caption: String) {

@@ -77,7 +77,7 @@ class WLDChatListCell: UITableViewCell {
         // Map username to proper avatar resource
         let avatarName: String
         switch name.lowercased() {
-        case "reptilefan": avatarName = "avatar_reptilefan"
+        case "photogpro": avatarName = "avatar_photogpro"
         case "snake", "snakewhisperer": avatarName = "avatar_snake"
         case "turtlepower": avatarName = "avatar_turtlepower"
         case "chameleoncham": avatarName = "avatar_chameleoncham"

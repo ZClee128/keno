@@ -5,99 +5,99 @@ class WLDInitialData {
         var posts: [WLDArticle] = []
         
         // --- 1. High Quality Manual Posts (Videos) ---
-        let defaultImg1 = "resource_img_01.jpg"
-        let defaultVid1 = "resource_vid_01.mp4"
-        let defaultImg2 = "resource_img_02.jpg"
-        let defaultVid2 = "resource_vid_02.mp4"
+        let defaultImg1 = "cosplay_1.jpeg"
+        let defaultVid1 = "cosplay_1.mp4"
+        let defaultImg2 = "cosplay_2.jpeg"
+        let defaultVid2 = "cosplay_2.mp4"
         let manualPosts = [
             WLDArticle(
                 id: "1",
-                userId: "user_coffeelover",
-                username: "CoffeeLover",
-                userAvatarURL: "avatar_cafehopper",
+                userId: "user_1",
+                username: "System",
+                userAvatarURL: "",
                 postImageURL: defaultImg1,
-                caption: "Morning brew to start the day right ☕️✨ #coffee #morningroutine #lifestyle",
-                likes: 124,
-                comments: 12,
+                caption: "New Cyberpunk 2077 Edgerunners Lucy cosplay shoot! The neon lighting setup was crazy. 📸✨ #cyberpunk #lucycosplay #neon",
+                likes: 1240,
+                comments: 120,
                 timestamp: "Just now",
                 videoName: defaultVid1,
-                location: "Cozy Cafe",
-                tags: ["Coffee", "Lifestyle"],
+                location: "Neo Tokyo Studio",
+                tags: ["Cyberpunk", "Lucy", "Neon"],
                 isLiked: false
             ),
             WLDArticle(
                 id: "2",
-                userId: "cozyhome_seed",
-                username: "CozyHome",
-                userAvatarURL: "avatar_cozycorner",
-                postImageURL: "placeholder_reptile_1",  // Local asset
-                caption: "Golden hour streaming into the living room 🌅🛋️",
-                likes: 89,
-                comments: 7,
+                userId: "user_2",
+                username: "System",
+                userAvatarURL: "",
+                postImageURL: defaultImg2,
+                caption: "Finally finished the EVA-01 armor details! 100+ hours of foam crafting. 👗✨",
+                likes: 890,
+                comments: 75,
                 timestamp: "2h ago",
-                videoName: nil,
-                location: "Home",
-                tags: ["Decor", "GoldenHour"],
+                videoName: defaultVid2,
+                location: "Comic Con",
+                tags: ["EVA", "Armor Making"],
                 isLiked: false
             ),
             WLDArticle(
                 id: "3",
-                userId: "yogalife_seed",
-                username: "YogaLife",
-                userAvatarURL: "avatar_yogadaily",
-                postImageURL: "placeholder_reptile_2",  // Local asset
-                caption: "Sunday morning stretch and meditation 🌿🧘‍♀️",
-                likes: 156,
-                comments: 23,
+                userId: "user_3",
+                username: "System",
+                userAvatarURL: "",
+                postImageURL: "new_cosplay_04",  // Local asset
+                caption: "Genshin Impact Raiden Shogun photoshoot previews. The sword prop looks amazing in the dark! ⚡️💜",
+                likes: 1560,
+                comments: 230,
                 timestamp: "1d ago",
                 videoName: nil,
-                location: "Studio",
-                tags: ["Yoga", "Wellness"],
+                location: "Inazuma Set",
+                tags: ["Genshin", "RaidenShogun"],
                 isLiked: false
             ),
             WLDArticle(
                 id: "4",
-                userId: "reading_seed",
-                username: "BookWorm",
-                userAvatarURL: "avatar_booklover",
-                postImageURL: "placeholder_reptile_3",  // Local asset
-                caption: "Current read: lost in another world 📖✨",
-                likes: 67,
-                comments: 5,
+                userId: "user_4",
+                username: "System",
+                userAvatarURL: "",
+                postImageURL: "new_cosplay_05",  // Local asset
+                caption: "Frieren at the Funeral setup. Magic staff made using 3D printing and resin casting. 🪄✨",
+                likes: 670,
+                comments: 55,
                 timestamp: "2d ago",
                 videoName: nil,
-                location: "Home Library",
-                tags: ["Reading", "Books"],
+                location: "Magic Forest",
+                tags: ["Frieren", "Props"],
                 isLiked: false
             ),
             WLDArticle(
                 id: "5",
-                userId: "wellness_seed",
-                username: "WellnessJourney",
-                userAvatarURL: "avatar_healthyeats",
+                userId: "user_5",
+                username: "System",
+                userAvatarURL: "",
                 postImageURL: defaultImg2,
-                caption: "Nourishing lunch bowl! 🥗🥑",
-                likes: 203,
-                comments: 15,
+                caption: "Jujutsu Kaisen Gojo Satoru casual street snap. 🕶️👟",
+                likes: 2030,
+                comments: 150,
                 timestamp: "3d ago",
                 videoName: nil,
-                location: "Kitchen",
-                tags: ["Healthy", "Food"],
+                location: "Shibuya",
+                tags: ["JJK", "GojoSatoru"],
                 isLiked: false
             ),
             WLDArticle(
-                id: "2",
-                userId: "user_aesthetic",
-                username: "AestheticVibes",
-                userAvatarURL: "avatar_warmaesthetic",  // Local asset
-                postImageURL: "placeholder_reptile_1",
-                caption: "New desk setup for productivity! 💻☕️ #workspace #desksetup",
-                likes: 89,
-                comments: 34,
+                id: "6",
+                userId: "user_6",
+                username: "System",
+                userAvatarURL: "",  // Local asset
+                postImageURL: "new_cosplay_06",
+                caption: "Nier Automata 2B abandoned factory location shoot! 📸✨ #nier #2b",
+                likes: 890,
+                comments: 340,
                 timestamp: "5h ago",
                 videoName: nil,
-                location: "Home Office",
-                tags: ["Workspace", "Productivity"],
+                location: "Factory Ruins",
+                tags: ["NierAutomata", "2B"],
                 isLiked: true
             )
         ]
@@ -105,40 +105,41 @@ class WLDInitialData {
         
         // --- 2. Dynamic Generation (using local placeholders) ---
         
-        let usernames = ["CafeHopper", "YogaDaily", "PlantParent", "BookLover", "MinimalistLife", "HealthyEats", "CozyCorner", "TravelDiaries", "WarmAesthetic", "SlowLiving", "MindfulMoments", "UrbanOasis"]
+        let usernames = ["System"] // Not displayed anymore
         
-        let locations = ["Local Coffee Shop", "City Apartment", "Yoga Studio", "Farmer's Market", "Botanical Garden", "Downtown Bookstore", "Cozy Bedroom", "Quiet Park", "Art Museum", "Sunny Balcony"]
+        let locations = ["Anime Expo", "Comiket", "Studio A", "Abandoned Factory", "Forest Park", "Neo City", "Cyberpunk Alley", "School Rooftop", "Shrine Set", "Gothic Castle"]
         
         let captions = [
-            "Just enjoying the slow morning. ☀️☕️",
-            "Perfect day for a matcha latte! 🍵",
-            "Loving this new decor piece ✨",
-            "Resting and recharging. 💤",
-            "Rearranged the plants today! 🪴",
-            "Trying out a new healthy recipe. 🥗",
-            "Weekend vibes. 📖",
-            "Can't believe how peaceful it is here.",
-            "Time for self-care... 🛁",
-            "Found this cute spot in the city.",
-            "Romanticizing my life. ❤️"
+            "Just finished styling the wig! 💇‍♀️✂️",
+            "Armor test fit before the con. 🛡️",
+            "Editing these raw photos took forever but totally worth it. 📸✨",
+            "This fabric looks magical under stadium lights. ✨",
+            "Behind the scenes at today's Genshin shoot. 🎬",
+            "Sword prop is finally fully 3D printed and sanded. ⚔️",
+            "Makeup test for Makima! 💄",
+            "Found the perfect ruins for this Nier shoot. ⚙️",
+            "Can't wait to debut this at Anime Expo! 🎉",
+            "Who's your favorite character from this season? 🌸",
+            "Action pose practice. The cape flow is perfect! 🦇"
         ]
         
-        // Use local placeholders instead of external URLs
-        let localPlaceholders = ["placeholder_reptile_1", "placeholder_reptile_2", "placeholder_reptile_3"]
+        // Use specific local placeholders for the remaining 7 posts
+        let tagPool = ["#GenshinImpact", "#Cosplay", "#Anime", "#Props", "#EVA", "#JJK", "#Nier", "#WigStyling", "#Cyberpunk", "#Manga"]
         
-        for i in 3...50 {
-            let user = usernames.randomElement()!
+        for i in 7...13 {
+            let user = usernames[0]
             let location = locations.randomElement()!
             let caption = captions.randomElement()!
-            let placeholderImage = localPlaceholders.randomElement()!
+            let placeholderImage = String(format: "new_cosplay_%02d", i)
             let likes = Int.random(in: 10...5000)
             let comments = Int.random(in: 0...100)
             
             let post = WLDArticle(
                 id: "\(i)",
-                userId: "user_\(user)",
+                userId: "user_sim_\(i)",
                 username: user,
-                userAvatarURL: "avatar_\(user.lowercased())",  // Local avatar
+                userAvatarURL: "",  // No avatar
+
                 postImageURL: placeholderImage,  // Local placeholder
                 caption: caption,
                 likes: likes,
@@ -146,7 +147,7 @@ class WLDInitialData {
                 timestamp: "\(Int.random(in: 1...23))h ago",
                 videoName: nil,
                 location: location,
-                tags: ["#Lifestyle", "#Cozy"],
+                tags: tagPool.shuffled().prefix(2).map { $0 },
                 isLiked: Bool.random()
             )
             posts.append(post)

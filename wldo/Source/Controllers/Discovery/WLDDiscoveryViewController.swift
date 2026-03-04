@@ -1,286 +1,415 @@
 import UIKit
+import EventKit
 
-class WLDDiscoveryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    private var collectionView: UICollectionView!
+// MARK: - Event Model
+struct WLDEvent {
+    let name: String
+    let date: String
+    let location: String
+    let description: String
+    let attendees: Int
+    let tag: String
+    let imageName: String
+}
 
+class WLDDiscoveryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    // Data Source Arrays
-    private var spotlightPosts: [WLDArticle] = []
-    private var vibes: [String] = []
-    private var editorialPosts: [WLDArticle] = []
+    private let tableView = UITableView(frame: .zero, style: .grouped)
+    private var events: [WLDEvent] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = WLDAppConfig.Colors.background
-        navigationItem.title = "Explore"
-        setupCollectionView()
-        loadData()
-    }
-    
-    private func setupCollectionView() {
-        let layout = createLayout()
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(collectionView)
+        navigationItem.title = "Conventions" // Renamed from Discover
+        navigationController?.navigationBar.prefersLargeTitles = true
         
-        // Register Cells
-        collectionView.register(WLDDiscoveryPostCell.self, forCellWithReuseIdentifier: "PostCell")
-        collectionView.register(WLDDiscoveryCapsuleCell.self, forCellWithReuseIdentifier: "CapsuleCell")
-        collectionView.register(WLDSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
+        setupTableView()
+        loadEvents()
         
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshList), name: NSNotification.Name("EventCalendarUpdated"), object: nil)
     }
     
-    private func createLayout() -> UICollectionViewLayout {
-        return UICollectionViewCompositionalLayout { (sectionIndex, env) -> NSCollectionLayoutSection? in
-            let sectionKind = WLDDiscoverySection.allCases[sectionIndex]
-            
-            switch sectionKind {
-            case .spotlight:
-                // Portrait Cards (3:4)
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-                
-                // Group width = 0.7 * ScreenWidth, Height = width * 1.33 (3:4 aspect)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.7), heightDimension: .fractionalWidth(0.93))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .groupPagingCentered
-                section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 0, bottom: 24, trailing: 0)
-                
-                let header = self.createSectionHeader()
-                section.boundarySupplementaryItems = [header]
-                return section
-                
-            case .vibes:
-                // Vibes (Horizontal Pills)
-                let estimatedWidth: CGFloat = 100
-                let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(estimatedWidth), heightDimension: .fractionalHeight(1.0))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(estimatedWidth), heightDimension: .absolute(40))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 24, trailing: 16)
-                section.interGroupSpacing = 10
-                
-                let header = self.createSectionHeader()
-                section.boundarySupplementaryItems = [header]
-                return section
-                
-            case .editorial:
-                // The Editorial (Asymmetric Bento Grid)
-                // Row 1: [2/3] [1/3]
-                // Row 2: [1/3] [2/3]
-                
-                let rowHeight = NSCollectionLayoutDimension.fractionalWidth(0.5)
-                
-                // --- Items ---
-                let heavyItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.66), heightDimension: .fractionalHeight(1.0)))
-                heavyItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-                
-                let lightItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.34), heightDimension: .fractionalHeight(1.0)))
-                lightItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-                
-                // --- Groups ---
-                // Row A: Heavy Left, Light Right
-                let groupA = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: rowHeight), subitems: [heavyItem, lightItem])
-                
-                // Row B: Light Left, Heavy Right
-                let groupB = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: rowHeight), subitems: [lightItem, heavyItem])
-                
-                // Main Group: Stack A and B
-                let mainGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1.0)) // 2 rows of 0.5 = 1.0
-                let mainGroup = NSCollectionLayoutGroup.vertical(layoutSize: mainGroupSize, subitems: [groupA, groupB])
-                
-                let section = NSCollectionLayoutSection(group: mainGroup)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 14, bottom: 20, trailing: 14)
-                
-                let header = self.createSectionHeader()
-                section.boundarySupplementaryItems = [header]
-                return section
-            }
-        }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
-    private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
-        return NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    @objc private func refreshList() {
+        tableView.reloadData()
     }
     
-    // Classic DataSource Methods
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return WLDDiscoverySection.allCases.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let sectionKind = WLDDiscoverySection.allCases[section]
-        switch sectionKind {
-        case .spotlight: return spotlightPosts.count
-        case .vibes: return vibes.count
-        case .editorial: return editorialPosts.count
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let sectionKind = WLDDiscoverySection.allCases[indexPath.section]
-        switch sectionKind {
-        case .spotlight:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCell", for: indexPath) as! WLDDiscoveryPostCell
-            cell.configure(with: spotlightPosts[indexPath.item])
-            return cell
-        case .vibes:
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CapsuleCell", for: indexPath) as! WLDDiscoveryCapsuleCell
-             cell.configure(with: vibes[indexPath.item])
-             return cell
-        case .editorial:
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCell", for: indexPath) as! WLDDiscoveryPostCell
-             cell.configure(with: editorialPosts[indexPath.item])
-             return cell
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let sectionKind = WLDDiscoverySection.allCases[indexPath.section]
+    private func setupTableView() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.register(WLDEventListCell.self, forCellReuseIdentifier: "WLDEventListCell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 160
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 0)
         
-        var selectedPost: WLDArticle?
-        
-        switch sectionKind {
-        case .spotlight:
-            selectedPost = spotlightPosts[indexPath.item]
-        case .vibes:
-            let tag = vibes[indexPath.item]
-            // Navigate to dedicated Tag Feed
-            let tagFeedVC = WLDTagFeedViewController()
-            tagFeedVC.tagName = tag
-            tagFeedVC.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(tagFeedVC, animated: true)
-            return
-        case .editorial:
-            selectedPost = editorialPosts[indexPath.item]
-        }
-        
-        if let post = selectedPost {
-            let detailVC = WLDArticleDetailViewController()
-            detailVC.post = post
-            detailVC.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(detailVC, animated: true)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! WLDSectionHeaderView
-        let section = WLDDiscoverySection.allCases[indexPath.section]
-        header.titleLabel.text = section.rawValue
-        return header
-    }
-
-    private func configureDataSource() {
-        collectionView.dataSource = self
-    }
-    
-    private func loadData() {
-        let allPosts = WLDInitialData.getPosts()
-        
-        // Sample distributions
-        spotlightPosts = Array(allPosts.prefix(5))
-        vibes = ["#CoffeeTime", "#OOTD", "#SelfCare", "#Yoga", "#Reading", "#HealthyEats", "#HomeDecor", "#Mindfulness", "#TravelDiaris", "#SlowLiving"]
-        editorialPosts = allPosts
-        
-        collectionView.reloadData()
-    }
-}
-
-// MARK: - Subviews
-
-class WLDSectionHeaderView: UICollectionReusableView {
-    let titleLabel = UILabel()
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(titleLabel)
-        titleLabel.pin(to: self, insets: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0))
-        titleLabel.font = WLDAppConfig.Fonts.header(size: 20)
-        titleLabel.textColor = WLDAppConfig.Colors.textPrimary
-    }
-    required init?(coder: NSCoder) { fatalError() }
-}
-
-class WLDDiscoveryPostCell: UICollectionViewCell {
-    private let imageView = UIImageView()
-    private let label = UILabel()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.addSubview(imageView)
-        contentView.addSubview(label)
-        imageView.pin(to: contentView)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 12
-        imageView.backgroundColor = .gray
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = WLDAppConfig.Fonts.caption(size: 12)
-        label.textColor = .white
-        
-        // Gradient for text readability
-        let gradient = CAGradientLayer()
-        gradient.frame = CGRect(x: 0, y: 0, width: 1000, height: 1000) // Oversize
-        gradient.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.6).cgColor]
-        imageView.layer.addSublayer(gradient)
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
-    func configure(with post: WLDArticle) {
-        WLDBitmapFetcher.shared.loadImage(from: post.postImageURL) { [weak self] img in
-            self?.imageView.image = img
-        }
-        label.text = post.username
+    private func loadEvents() {
+        events = [
+            WLDEvent(name: "Anime Expo 2026", date: "July 2 - July 5", location: "Los Angeles, CA", description: "The largest anime convention in North America. Huge cosplay gatherings for Genshin, JJK, and more.", attendees: 115000, tag: "Mega Event", imageName: "new_cosplay_07"),
+            WLDEvent(name: "Comiket 104", date: "August 11 - August 12", location: "Tokyo Big Sight, Japan", description: "The holy grail of doujinshi and cosplay. Expect massive lines and exclusive merch drops.", attendees: 500000, tag: "International", imageName: "new_cosplay_08"),
+            WLDEvent(name: "Katsucon", date: "February 13 - February 15", location: "National Harbor, MD", description: "Famous for its beautiful gazebo and high-tier cinematic cosplay photography.", attendees: 17000, tag: "Photo Heavy", imageName: "new_cosplay_09"),
+            WLDEvent(name: "Cyber City Gathering", date: "October 30 - October 31", location: "Neo Seoul Center", description: "Dedicated to Cyberpunk, Mecha, and futuristic aesthetics. Neon lights provided.", attendees: 8500, tag: "Themed", imageName: "new_cosplay_10"),
+            WLDEvent(name: "Fantasy Faire", date: "May 15 - May 16", location: "Sherwood Forest Park", description: "Outdoor setting perfect for fantasy, armor, and medieval weapon props.", attendees: 5000, tag: "Outdoor", imageName: "new_cosplay_11")
+        ]
+        tableView.reloadData()
     }
-    required init?(coder: NSCoder) { fatalError() }
+    
+    // MARK: - UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WLDEventListCell", for: indexPath) as! WLDEventListCell
+        cell.configure(with: events[indexPath.row])
+        return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let detailVC = WLDEventDetailViewController()
+        detailVC.event = events[indexPath.row]
+        detailVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
-class WLDDiscoveryCapsuleCell: UICollectionViewCell {
-    private let label = UILabel()
+// MARK: - WLDEventListCell
+class WLDEventListCell: UITableViewCell {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.backgroundColor = WLDAppConfig.Colors.cardBackground
-        contentView.layer.cornerRadius = 20
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = WLDAppConfig.Colors.lifestyleAccent.withAlphaComponent(0.3).cgColor
-        
-        contentView.addSubview(label)
-        label.pin(to: contentView, insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
-        
-        label.font = WLDAppConfig.Fonts.body(size: 14)
-        label.textColor = WLDAppConfig.Colors.textPrimary
-        label.textAlignment = .center
+    private let containerView = UIView()
+    private let eventImageView = UIImageView()
+    private let nameLabel = UILabel()
+    private let dateLabel = UILabel()
+    private let locationLabel = UILabel()
+    private let descLabel = UILabel()
+    private let tagContainer = UIView()
+    private let tagLabel = UILabel()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
+        backgroundColor = .clear
+        setupUI()
     }
     
-    func configure(with text: String) {
-        label.text = text
+    required init?(coder: NSCoder) { fatalError() }
+    
+    private func setupUI() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.backgroundColor = WLDAppConfig.Colors.cardBackground
+        containerView.layer.cornerRadius = 16
+        containerView.layer.shadowColor = WLDAppConfig.Colors.shadow.cgColor
+        containerView.layer.shadowOpacity = 1
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        containerView.layer.shadowRadius = 8
+        contentView.addSubview(containerView)
+        
+        eventImageView.translatesAutoresizingMaskIntoConstraints = false
+        eventImageView.contentMode = .scaleAspectFill
+        eventImageView.clipsToBounds = true
+        eventImageView.layer.cornerRadius = 12
+        eventImageView.backgroundColor = WLDAppConfig.Colors.sand
+        containerView.addSubview(eventImageView)
+        
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.font = WLDAppConfig.Fonts.title(size: 18)
+        nameLabel.textColor = WLDAppConfig.Colors.textPrimary
+        containerView.addSubview(nameLabel)
+        
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.font = WLDAppConfig.Fonts.title(size: 14) // Slightly bolder for dates
+        dateLabel.textColor = .systemOrange // Accent color
+        containerView.addSubview(dateLabel)
+        
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+        locationLabel.font = WLDAppConfig.Fonts.caption(size: 13)
+        locationLabel.textColor = WLDAppConfig.Colors.textSecondary
+        containerView.addSubview(locationLabel)
+        
+        descLabel.translatesAutoresizingMaskIntoConstraints = false
+        descLabel.font = WLDAppConfig.Fonts.body(size: 14)
+        descLabel.textColor = WLDAppConfig.Colors.textPrimary
+        descLabel.numberOfLines = 2
+        containerView.addSubview(descLabel)
+        
+        tagContainer.translatesAutoresizingMaskIntoConstraints = false
+        tagContainer.backgroundColor = WLDAppConfig.Colors.sand
+        tagContainer.layer.cornerRadius = 6
+        containerView.addSubview(tagContainer)
+        
+        tagLabel.translatesAutoresizingMaskIntoConstraints = false
+        tagLabel.font = WLDAppConfig.Fonts.caption(size: 11)
+        tagLabel.textColor = WLDAppConfig.Colors.textPrimary
+        tagContainer.addSubview(tagLabel)
+        
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            eventImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
+            eventImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            eventImageView.widthAnchor.constraint(equalToConstant: 80),
+            eventImageView.heightAnchor.constraint(equalToConstant: 100),
+            
+            nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
+            nameLabel.leadingAnchor.constraint(equalTo: eventImageView.trailingAnchor, constant: 12),
+            nameLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            
+            dateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+            dateLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            
+            locationLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 2),
+            locationLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            
+            tagContainer.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor),
+            tagContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            
+            tagLabel.topAnchor.constraint(equalTo: tagContainer.topAnchor, constant: 4),
+            tagLabel.bottomAnchor.constraint(equalTo: tagContainer.bottomAnchor, constant: -4),
+            tagLabel.leadingAnchor.constraint(equalTo: tagContainer.leadingAnchor, constant: 8),
+            tagLabel.trailingAnchor.constraint(equalTo: tagContainer.trailingAnchor, constant: -8),
+            
+            descLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 8),
+            descLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            descLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            descLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -12)
+        ])
     }
     
-    override var isSelected: Bool {
-        didSet {
-            UIView.animate(withDuration: 0.3) {
-                self.contentView.backgroundColor = self.isSelected ? WLDAppConfig.Colors.lifestyleAccent : WLDAppConfig.Colors.cardBackground
-                self.label.textColor = self.isSelected ? .black : WLDAppConfig.Colors.textPrimary
+    func configure(with event: WLDEvent) {
+        nameLabel.text = event.name
+        
+        // Check if already added to calendar
+        let isAdded = UserDefaults.standard.bool(forKey: "calendar_added_\(event.name)")
+        dateLabel.text = isAdded ? "🗓 \(event.date)  ✅" : "🗓 \(event.date)"
+        
+        locationLabel.text = "📍 \(event.location)"
+        descLabel.text = event.description
+        tagLabel.text = event.tag
+        
+        WLDBitmapFetcher.shared.loadImage(from: event.imageName) { [weak self] img in
+            self?.eventImageView.image = img
+        }
+    }
+}
+
+// MARK: - Event Detail View Controller
+class WLDEventDetailViewController: UIViewController {
+    
+    var event: WLDEvent!
+    let eventStore = EKEventStore()
+    
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    
+    private let heroImageView = UIImageView()
+    private let textContainer = UIView()
+    private let nameLabel = UILabel()
+    private let dateLabel = UILabel()
+    private let locationLabel = UILabel()
+    private let attendeesLabel = UILabel()
+    private let descLabel = UILabel()
+    private let addToCalendarButton = UIButton(type: .system)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = WLDAppConfig.Colors.background
+        navigationItem.largeTitleDisplayMode = .never
+        
+        setupUI()
+        populateData()
+    }
+    
+    private func setupUI() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        heroImageView.translatesAutoresizingMaskIntoConstraints = false
+        heroImageView.contentMode = .scaleAspectFill
+        heroImageView.clipsToBounds = true
+        heroImageView.backgroundColor = WLDAppConfig.Colors.sand
+        contentView.addSubview(heroImageView)
+        
+        textContainer.translatesAutoresizingMaskIntoConstraints = false
+        textContainer.backgroundColor = WLDAppConfig.Colors.cardBackground
+        textContainer.layer.cornerRadius = 24
+        textContainer.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        contentView.addSubview(textContainer)
+        
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.font = WLDAppConfig.Fonts.title(size: 28)
+        nameLabel.textColor = WLDAppConfig.Colors.textPrimary
+        nameLabel.numberOfLines = 0
+        textContainer.addSubview(nameLabel)
+        
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.font = WLDAppConfig.Fonts.title(size: 16)
+        dateLabel.textColor = .systemOrange
+        textContainer.addSubview(dateLabel)
+        
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+        locationLabel.font = WLDAppConfig.Fonts.body(size: 16)
+        locationLabel.textColor = WLDAppConfig.Colors.textSecondary
+        textContainer.addSubview(locationLabel)
+        
+        attendeesLabel.translatesAutoresizingMaskIntoConstraints = false
+        attendeesLabel.font = WLDAppConfig.Fonts.caption(size: 14)
+        attendeesLabel.textColor = WLDAppConfig.Colors.textSecondary
+        textContainer.addSubview(attendeesLabel)
+        
+        descLabel.translatesAutoresizingMaskIntoConstraints = false
+        descLabel.font = WLDAppConfig.Fonts.body(size: 16)
+        descLabel.textColor = WLDAppConfig.Colors.textPrimary
+        descLabel.numberOfLines = 0
+        textContainer.addSubview(descLabel)
+        
+        addToCalendarButton.translatesAutoresizingMaskIntoConstraints = false
+        addToCalendarButton.setTitle("Add to Calendar", for: .normal)
+        addToCalendarButton.setTitleColor(.white, for: .normal)
+        addToCalendarButton.backgroundColor = .systemBlue
+        addToCalendarButton.titleLabel?.font = WLDAppConfig.Fonts.title(size: 18)
+        addToCalendarButton.layer.cornerRadius = 25
+        addToCalendarButton.addTarget(self, action: #selector(didTapCalendar), for: .touchUpInside)
+        textContainer.addSubview(addToCalendarButton)
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            heroImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            heroImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            heroImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            heroImageView.heightAnchor.constraint(equalToConstant: 350),
+            
+            textContainer.topAnchor.constraint(equalTo: heroImageView.bottomAnchor, constant: -30),
+            textContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            textContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            textContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            nameLabel.topAnchor.constraint(equalTo: textContainer.topAnchor, constant: 30),
+            nameLabel.leadingAnchor.constraint(equalTo: textContainer.leadingAnchor, constant: 20),
+            nameLabel.trailingAnchor.constraint(equalTo: textContainer.trailingAnchor, constant: -20),
+            
+            dateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
+            dateLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            
+            locationLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 6),
+            locationLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            
+            attendeesLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 6),
+            attendeesLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            
+            descLabel.topAnchor.constraint(equalTo: attendeesLabel.bottomAnchor, constant: 20),
+            descLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            descLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+            
+            addToCalendarButton.topAnchor.constraint(equalTo: descLabel.bottomAnchor, constant: 40),
+            addToCalendarButton.leadingAnchor.constraint(equalTo: textContainer.leadingAnchor, constant: 20),
+            addToCalendarButton.trailingAnchor.constraint(equalTo: textContainer.trailingAnchor, constant: -20),
+            addToCalendarButton.heightAnchor.constraint(equalToConstant: 50),
+            addToCalendarButton.bottomAnchor.constraint(equalTo: textContainer.bottomAnchor, constant: -40)
+        ])
+    }
+    
+    private func populateData() {
+        guard let post = event else { return }
+        nameLabel.text = post.name
+        dateLabel.text = "🗓 \(post.date)"
+        locationLabel.text = "📍 Venue: \(post.location)"
+        attendeesLabel.text = "👥 Expected attendees: \(post.attendees)"
+        descLabel.text = post.description
+        
+        WLDBitmapFetcher.shared.loadImage(from: post.imageName) { [weak self] img in
+            self?.heroImageView.image = img
+        }
+        
+        // Restore button state
+        let isAdded = UserDefaults.standard.bool(forKey: "calendar_added_\(post.name)")
+        if isAdded {
+            addToCalendarButton.setTitle("Added \u{2713}", for: .normal)
+            addToCalendarButton.backgroundColor = .systemGreen
+            addToCalendarButton.isEnabled = false
+        }
+    }
+    
+    @objc private func didTapCalendar() {
+        let addToCalendar = { [weak self] in
+            guard let self = self else { return }
+            let ekEvent = EKEvent(eventStore: self.eventStore)
+            ekEvent.title = self.event.name
+            ekEvent.location = self.event.location
+            ekEvent.notes = self.event.description
+            
+            // Mocking the event date 30 days into the future for presentation purposes
+            ekEvent.startDate = Date().addingTimeInterval(86400 * 30)
+            ekEvent.endDate = Date().addingTimeInterval(86400 * 31)
+            ekEvent.calendar = self.eventStore.defaultCalendarForNewEvents
+            
+            do {
+                try self.eventStore.save(ekEvent, span: .thisEvent)
+                
+                // Persist state
+                UserDefaults.standard.set(true, forKey: "calendar_added_\(self.event.name)")
+                
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Success", message: "\(self.event.name) has been safely added to your system calendar.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Awesome", style: .default, handler: { _ in
+                        self.addToCalendarButton.setTitle("Added \u{2713}", for: .normal)
+                        self.addToCalendarButton.backgroundColor = .systemGreen
+                        self.addToCalendarButton.isEnabled = false
+                        
+                        // Notify list to refresh
+                        NotificationCenter.default.post(name: NSNotification.Name("EventCalendarUpdated"), object: nil)
+                    }))
+                    self.present(alert, animated: true)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error", message: "Failed to save the event to calendar.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+        
+        // Request Permission
+        if #available(iOS 17.0, *) {
+            eventStore.requestWriteOnlyAccessToEvents { granted, error in
+                if granted { addToCalendar() }
+            }
+        } else {
+            eventStore.requestAccess(to: .event) { granted, error in
+                if granted { addToCalendar() }
             }
         }
     }
-    
-    required init?(coder: NSCoder) { fatalError() }
 }

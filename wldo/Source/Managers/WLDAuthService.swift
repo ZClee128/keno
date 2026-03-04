@@ -8,19 +8,14 @@ class WLDAuthService {
     private let kUserFile = "user_profile.json"
     
     private init() {
-        self.currentUser = WLDStorageWorker.shared.load(from: kUserFile)
+        self.currentUser = WLDProfile(id: "guest", username: "PhotogPro", email: "guest@keno.com", avatarURL: "avatar_photogpro", bio: "Cosplay & Photography enthusiast 📸")
         if let blocked = UserDefaults.standard.stringArray(forKey: kBlockedUsersKey) {
             self.blockedUsers = Set(blocked)
-        }
-        
-        // Initialize with default seed account
-        if UserDefaults.standard.dictionary(forKey: kRegisteredUsersKey) == nil {
-            UserDefaults.standard.set(["seed@wldo.com": "reptilefan_seed"], forKey: kRegisteredUsersKey)
         }
     }
     
     var isLoggedIn: Bool {
-        return currentUser != nil
+        return true
     }
     
     private(set) var currentUser: WLDProfile?
@@ -33,20 +28,7 @@ class WLDAuthService {
     private(set) var blockedUsers: Set<String> = []
     
     func ensureLoggedIn(on viewController: UIViewController, completion: @escaping () -> Void) {
-        // ... (ensureLoggedIn code same)
-        if isLoggedIn {
-            completion()
-        } else {
-            let loginVC = WLDLoginView()
-            let nav = UINavigationController(rootViewController: loginVC)
-            nav.modalPresentationStyle = .fullScreen
-            loginVC.onLoginSuccess = {
-                nav.dismiss(animated: true) {
-                    completion()
-                }
-            }
-            viewController.present(nav, animated: true)
-        }
+        completion()
     }
     
     private let kRegisteredUsersKey = "WLD_RegisteredUsers"
@@ -79,7 +61,7 @@ class WLDAuthService {
             username: username,
             email: email,
             avatarURL: "avatar_\(username.lowercased())",  // Local avatar asset
-            bio: "New reptile enthusiast 🦎"
+            bio: "Photography enthusiast 📸"
         )
         self.currentUser = user
         UserDefaults.standard.set(true, forKey: kIsLoggedInKey)

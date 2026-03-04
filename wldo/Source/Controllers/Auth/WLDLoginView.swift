@@ -314,7 +314,7 @@ class WLDLoginView: UIViewController, UITextFieldDelegate, UIGestureRecognizerDe
     private func suggestUsername(from email: String) -> String {
         // Special case for seed account
         if email.lowercased() == "seed@wldo.com" {
-            return "ReptileFan"
+            return "PhotogPro"
         }
         return email.split(separator: "@").first.map(String.init) ?? "User"
     }

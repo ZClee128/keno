@@ -14,7 +14,7 @@ class WLDSettingsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 { return 1 }
-        return 2 // Log Out and Delete Account
+        return 0 // Removed Log Out and Delete Account
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -69,7 +69,7 @@ class WLDSettingsViewController: UITableViewController {
     private func logout() {
         WLDAuthService.shared.logout()
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.switchToMainApp()
+            appDelegate.ox_0BsIkPfu()
         }
     }
     
@@ -83,7 +83,7 @@ class WLDSettingsViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Delete Forever", style: .destructive, handler: { _ in
             WLDAuthService.shared.deleteAccount()
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.switchToMainApp()
+                appDelegate.ox_0BsIkPfu()
             }
         }))
         

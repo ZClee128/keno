@@ -85,7 +85,7 @@ class WLDStoryDetailViewController: UIViewController {
         userLabel.text = name
         
         // Use local placeholder instead of external URL
-        let localStories = ["resource_img_01.jpg", "2.jpg", "placeholder_reptile_1"]
+        let localStories = ["resource_img_01.jpg", "2.jpg", "placeholder_fashion_1"]
         let urlString = localStories.randomElement()!
         WLDBitmapFetcher.shared.loadImage(from: urlString) { [weak self] image in
             self?.imageView.image = image

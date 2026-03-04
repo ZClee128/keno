@@ -1,142 +1,223 @@
 import UIKit
 
-class WLDProfileHeaderReusableView: UICollectionReusableView {
-    static let identifier = "WLDProfileHeaderReusableView"
-    private let headerView = WLDProfileHeaderView()
+class WLDProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(headerView)
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.pin(to: self)
+    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "About Keno"
+        view.backgroundColor = WLDAppConfig.Colors.background
+        
+        setupTableView()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .singleLine
+        
+        // Register cells
+        tableView.register(WelcomeCardCell.self, forCellReuseIdentifier: WelcomeCardCell.identifier)
+        tableView.register(InfoCardCell.self, forCellReuseIdentifier: InfoCardCell.identifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "BasicCell")
+        
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
-    func configure(user: WLDProfile?, postCount: Int) {
-        if let user = user {
-            headerView.configure(name: user.username, bio: user.bio, avatarURL: user.avatarURL, postCount: postCount)
-        } else if let currentUser = WLDAuthService.shared.currentUser {
-            headerView.configure(name: currentUser.username, bio: currentUser.bio, avatarURL: currentUser.avatarURL, postCount: postCount)
+    // MARK: - TableView
+    func numberOfSections(in tableView: UITableView) -> Int { return 3 }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0: return 1 // Welcome
+        case 1: return 4 // App Info + Coin Store
+        case 2: return 2 // Legal
+        default: return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1: return "App Information"
+        case 2: return "Legal & Support"
+        default: return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: WelcomeCardCell.identifier, for: indexPath) as! WelcomeCardCell
+            return cell
+        } else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: InfoCardCell.identifier, for: indexPath) as! InfoCardCell
+            if indexPath.row == 0 {
+                cell.configure(title: "Coin Store & IAP", value: "Recharge", hasDisclosure: true, icon: "bitcoinsign.circle.fill", iconColor: .systemYellow)
+            } else if indexPath.row == 1 {
+                cell.configure(title: "Active Creators", value: "2,408", hasDisclosure: false, icon: "person.2.fill", iconColor: .systemTeal)
+            } else if indexPath.row == 2 {
+                cell.configure(title: "Featured Masterpieces", value: "11,592", hasDisclosure: false, icon: "photo.on.rectangle.angled", iconColor: .systemIndigo)
+            } else {
+                cell.configure(title: "Trending Tags", value: "348", hasDisclosure: false, icon: "chart.line.uptrend.xyaxis", iconColor: .systemOrange)
+            }
+            return cell
         } else {
-            // Default "Guest"
-             headerView.configure(name: "Guest", bio: "Please log in to share your collection! 🦎", avatarURL: "avatar_guest", postCount: 0)  // Local guest avatar
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BasicCell", for: indexPath)
+            cell.accessoryType = .disclosureIndicator
+            if indexPath.row == 0 {
+                cell.textLabel?.text = "Privacy Policy"
+                cell.imageView?.image = UIImage(systemName: "hand.raised.fill")
+                cell.imageView?.tintColor = .systemGray
+            } else {
+                cell.textLabel?.text = "Terms of Service"
+                cell.imageView?.image = UIImage(systemName: "doc.text.fill")
+                cell.imageView?.tintColor = .systemGray
+            }
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 2 {
+            let type: WLDPolicyType = (indexPath.row == 0) ? .privacy : .terms
+            let vc = WLDPolicyViewController(type: type)
+            let nav = UINavigationController(rootViewController: vc)
+            present(nav, animated: true)
+        } else if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                let vc = WLDCoinStoreViewController()
+                vc.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let titles = ["Active Creators", "Featured Masterpieces", "Trending Tags"]
+                let messages = [
+                    "Join our growing community of 2,408 talented cosplay creators from all over the world!",
+                    "Explore 11,592 stunning pieces of high-quality cosplay photography hand-picked by our editors.",
+                    "Dive into 348 active trending topics and find your favorite fandoms easily."
+                ]
+                let alert = UIAlertController(title: titles[indexPath.row - 1], message: messages[indexPath.row - 1], preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Awesome", style: .default))
+                present(alert, animated: true)
+            }
         }
     }
 }
 
-// WLDProfile moved to Source/Models/WLDProfile.swift
-
-
-class WLDProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-
-    var user: WLDProfile? // If nil, it's "Me"
-    private var collectionView: UICollectionView!
-    private var posts: [WLDArticle] = []
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = user?.username ?? "Profile"
-        view.backgroundColor = WLDAppConfig.Colors.background
-        setupCollectionView()
-        setupNavBar()
-        loadData()
+// MARK: - Custom Cells
+class WelcomeCardCell: UITableViewCell {
+    static let identifier = "WelcomeCardCell"
+    
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) { fatalError() }
+    
+    private func setupUI() {
+        selectionStyle = .none
+        backgroundColor = WLDAppConfig.Colors.cardBackground
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: NSNotification.Name("WLDNewPostAdded"), object: nil)
+        titleLabel.text = "Keno Platform"
+        titleLabel.font = WLDAppConfig.Fonts.header(size: 22)
+        titleLabel.textColor = WLDAppConfig.Colors.textPrimary
+        titleLabel.textAlignment = .center
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(titleLabel)
+        
+        subtitleLabel.text = "The premier destination for high-quality Cosplay visual arts."
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.font = WLDAppConfig.Fonts.body(size: 14)
+        subtitleLabel.textColor = WLDAppConfig.Colors.textSecondary
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(subtitleLabel)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 32),
+            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
+            subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            subtitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            subtitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -32)
+        ])
+    }
+}
+
+class InfoCardCell: UITableViewCell {
+    static let identifier = "InfoCardCell"
+    
+    private let iconImageView = UIImageView()
+    private let titleLabel = UILabel()
+    private let valueLabel = UILabel()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        // Refresh data when returning to view (e.g., after login/logout)
-        loadData()
+    required init?(coder: NSCoder) { fatalError() }
+    
+    private func setupUI() {
+        selectionStyle = .none
+        backgroundColor = WLDAppConfig.Colors.cardBackground
+        
+        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(iconImageView)
+        
+        titleLabel.font = WLDAppConfig.Fonts.body(size: 16)
+        titleLabel.textColor = WLDAppConfig.Colors.textPrimary
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(titleLabel)
+        
+        valueLabel.font = WLDAppConfig.Fonts.header(size: 16)
+        valueLabel.textColor = WLDAppConfig.Colors.textSecondary
+        valueLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(valueLabel)
+        
+        NSLayoutConstraint.activate([
+            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            iconImageView.widthAnchor.constraint(equalToConstant: 24),
+            iconImageView.heightAnchor.constraint(equalToConstant: 24),
+            
+            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            valueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            valueLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+        ])
     }
     
-    @objc private func loadData() {
-        let allPosts = WLDFeedController.shared.getAllPosts()
-        if let targetId = user?.id {
-            posts = allPosts.filter { $0.userId == targetId }
+    func configure(title: String, value: String, hasDisclosure: Bool, icon: String, iconColor: UIColor) {
+        titleLabel.text = title
+        valueLabel.text = value
+        accessoryType = hasDisclosure ? .disclosureIndicator : .none
+        
+        iconImageView.image = UIImage(systemName: icon)
+        iconImageView.tintColor = iconColor
+        
+        if hasDisclosure {
+            valueLabel.textColor = WLDAppConfig.Colors.lifestyleAccent
         } else {
-            // Me: Show only my posts
-            let myId = WLDAuthService.shared.currentUser?.id ?? "Guest"
-            posts = allPosts.filter { $0.userId == myId }
+            valueLabel.textColor = WLDAppConfig.Colors.textSecondary
         }
-        collectionView?.reloadData()
-    }
-
-    private func setupNavBar() {
-        if user == nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(didTapSettings))
-        }
-    }
-    
-    private func setupCollectionView() {
-        let layout = createLayout()
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        collectionView.register(WLDPhotoGridCell.self, forCellWithReuseIdentifier: "WLDPhotoGridCell")
-        collectionView.register(WLDProfileHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: WLDProfileHeaderReusableView.identifier)
-        
-        view.addSubview(collectionView)
-        collectionView.pin(to: view)
-    }
-    
-    private func createLayout() -> UICollectionViewLayout {
-        return UICollectionViewCompositionalLayout { (sectionIndex, env) -> NSCollectionLayoutSection? in
-            // Grid Item
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0/3.0), heightDimension: .fractionalWidth(1.0/3.0))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
-            
-            // Group
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1.0/3.0))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item, item, item])
-            
-            // Section
-            let section = NSCollectionLayoutSection(group: group)
-            
-            // Header
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(250))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-            section.boundarySupplementaryItems = [header]
-            
-            return section
-        }
-    }
-    
-    // MARK: DataSource
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WLDPhotoGridCell", for: indexPath) as! WLDPhotoGridCell
-        let post = posts[indexPath.row]
-        cell.configure(with: post)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: WLDProfileHeaderReusableView.identifier, for: indexPath) as! WLDProfileHeaderReusableView
-        header.configure(user: self.user, postCount: self.posts.count)
-        return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let post = posts[indexPath.row]
-        let detailVC = WLDArticleDetailViewController()
-        detailVC.post = post
-        detailVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
-    @objc private func didTapSettings() {
-        let settingsVC = WLDSettingsViewController()
-        navigationController?.pushViewController(settingsVC, animated: true)
     }
 }

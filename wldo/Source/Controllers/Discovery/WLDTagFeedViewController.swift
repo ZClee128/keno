@@ -1,6 +1,6 @@
 import UIKit
 
-class WLDTagFeedViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class WLDTagFeedViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, StaggeredGridLayoutDelegate {
     
     var tagName: String? {
         didSet {
@@ -20,36 +20,31 @@ class WLDTagFeedViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     private func setupCollectionView() {
-        let layout = createLayout()
+        let layout = StaggeredGridLayout()
+        layout.delegate = self
+        
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 6, bottom: 20, right: 6)
+        
         view.addSubview(collectionView)
         
-        collectionView.register(WLDMosaicCell.self, forCellWithReuseIdentifier: "PostCell")
+        collectionView.register(WLDStaggeredFeedCell.self, forCellWithReuseIdentifier: "WLDStaggeredFeedCell")
         collectionView.dataSource = self
         collectionView.delegate = self
     }
     
-    private func createLayout() -> UICollectionViewLayout {
-        // Simple 2-column grid
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.66)) // 3:4 aspect ratio items effectively
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-        
-        return UICollectionViewCompositionalLayout(section: section)
+    func collectionView(_ collectionView: UICollectionView, heightForItemAt indexPath: IndexPath, with width: CGFloat) -> CGFloat {
+        let post = posts[indexPath.item]
+        let isPortrait = (post.caption.count % 2 == 0)
+        let baseHeight = width * (isPortrait ? 1.4 : 1.1)
+        return baseHeight + 60
     }
     
     private func loadData() {
-        // In a real app, filter by tagName. Here, just shuffle or duplicate.
         let allPosts = WLDInitialData.getPosts()
-        posts = allPosts.shuffled() // Shuffle to look different
+        posts = allPosts.shuffled()
         collectionView.reloadData()
     }
     
@@ -59,7 +54,7 @@ class WLDTagFeedViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCell", for: indexPath) as! WLDMosaicCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WLDStaggeredFeedCell", for: indexPath) as! WLDStaggeredFeedCell
         cell.configure(with: posts[indexPath.item])
         return cell
     }

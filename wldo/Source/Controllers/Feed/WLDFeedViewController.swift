@@ -1,23 +1,18 @@
 import UIKit
 
-class WLDFeedViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, WLDStoriesViewDelegate, WLDArticleCellDelegate {
+class WLDFeedViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, StaggeredGridLayoutDelegate {
 
     private var collectionView: UICollectionView!
-
-    
     private var posts: [WLDArticle] = []
-    
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Feed"
+        title = "For You"
         view.backgroundColor = WLDAppConfig.Colors.background
         
-        setupCollectionView()
-        configureDataSource()
-        loadData()
         setupNavBar()
+        setupCollectionView()
+        loadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(refreshFeed), name: NSNotification.Name("WLDNewPostAdded"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshFeed), name: NSNotification.Name("WLDProfileBlocked"), object: nil)
@@ -30,341 +25,274 @@ class WLDFeedViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     private func loadData() {
-        posts = WLDFeedController.shared.getAllPosts()
+        posts = WLDFeedController.shared.getAllPosts() // Stable order: videos first
         collectionView.reloadData()
     }
     
     private func setupNavBar() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         
-//        let cameraBtn = UIBarButtonItem(image: UIImage(systemName: "camera"), style: .plain, target: self, action: #selector(didTapCamera))
-        let chatBtn = UIBarButtonItem(image: UIImage(systemName: "message"), style: .plain, target: self, action: #selector(didTapChat))
+        // Add a sleek modern logo or title view instead of large titles
+        let titleLabel = UILabel()
+        titleLabel.text = "KENO"
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .black)
+        titleLabel.textColor = WLDAppConfig.Colors.textPrimary
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         
-//        navigationItem.leftBarButtonItem = cameraBtn
-        navigationItem.rightBarButtonItem = chatBtn
+        navigationItem.rightBarButtonItem = nil
         
-        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.lifestyleAccent
+        navigationController?.navigationBar.tintColor = WLDAppConfig.Colors.textPrimary
     }
     
     private func setupCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        let layout = StaggeredGridLayout()
+        layout.delegate = self
+        
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 6, bottom: 20, right: 6)
+        collectionView.showsVerticalScrollIndicator = false
+        
         view.addSubview(collectionView)
         
+        // Register New Staggered Cell
+        collectionView.register(WLDStaggeredFeedCell.self, forCellWithReuseIdentifier: "WLDStaggeredFeedCell")
+        collectionView.dataSource = self
         collectionView.delegate = self
+    }
+    
+    // MARK: - Layout Delegate
+    func collectionView(_ collectionView: UICollectionView, heightForItemAt indexPath: IndexPath, with width: CGFloat) -> CGFloat {
+        // Randomize heights slightly or based on aspect ratio to simulate staggered waterfall
+        let post = posts[indexPath.item]
+        let isPortrait = (post.caption.count % 2 == 0) // Fake aspect ratio determination
+        let baseHeight = width * (isPortrait ? 1.4 : 1.1)
         
-        // Register Cells
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "StoryContainerCell") // Container for StoriesView
-        collectionView.register(WLDSpotlightCell.self, forCellWithReuseIdentifier: "SpotlightCell") // Reusing PostCell for Spotlight
-        collectionView.register(WLDMosaicCell.self, forCellWithReuseIdentifier: "MosaicCell") // New Simple Cell
+        // Add space for the text area at the bottom
+        let textPadding: CGFloat = 60
+        return baseHeight + textPadding
     }
     
-    private func createLayout() -> UICollectionViewLayout {
-        return UICollectionViewCompositionalLayout { (sectionIndex, env) -> NSCollectionLayoutSection? in
-            let sectionKind = WLDFeedSection.allCases[sectionIndex]
-            
-            switch sectionKind {
-            case .stories:
-                // Full width, fixed height container
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(120))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
-                let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0)
-                return section
-                
-            case .spotlight:
-                // Large Paging Card (Spotlight)
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                // 90% width to show next item peeking
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalWidth(1.1))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .groupPagingCentered
-                section.interGroupSpacing = 16
-                section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 30, trailing: 0)
-                return section
-                
-            case .mosaic:
-                // Complex Mosaic
-                let fullItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)))
-                fullItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-
-                let largeItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.66), heightDimension: .fractionalHeight(1.0)))
-                largeItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-                
-                let stackedItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.5)))
-                stackedItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-                
-                let stackedGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.34), heightDimension: .fractionalHeight(1.0)), subitem: stackedItem, count: 2)
-                
-                let groupA = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.7)), subitems: [largeItem, stackedGroup])
-                
-                let section = NSCollectionLayoutSection(group: groupA)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 20, trailing: 10)
-                return section
-            }
-        }
-    }
-    
-    // Classic DataSource
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return WLDFeedSection.allCases.count
-    }
-    
+    // MARK: - Data Source
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let sectionKind = WLDFeedSection.allCases[section]
-        switch sectionKind {
-        case .stories:
-            return 1
-        case .spotlight:
-            return min(posts.count, 3)
-        case .mosaic:
-            return max(0, posts.count - 3)
-        }
+        return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let sectionKind = WLDFeedSection.allCases[indexPath.section]
-        switch sectionKind {
-        case .stories:
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoryContainerCell", for: indexPath)
-             if cell.contentView.subviews.isEmpty {
-                 let storiesView = WLDStoriesView(frame: cell.bounds)
-                 storiesView.delegate = self
-                 cell.contentView.addSubview(storiesView)
-                 storiesView.pin(to: cell.contentView)
-             }
-             return cell
-             
-        case .spotlight:
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SpotlightCell", for: indexPath) as! WLDSpotlightCell
-             let post = posts[indexPath.item]
-             cell.configure(with: post)
-             cell.delegate = self
-             return cell
-             
-        case .mosaic:
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MosaicCell", for: indexPath) as! WLDMosaicCell
-             let post = posts[indexPath.item + 3]
-             cell.configure(with: post)
-             return cell
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WLDStaggeredFeedCell", for: indexPath) as! WLDStaggeredFeedCell
+        cell.configure(with: posts[indexPath.item])
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let sectionKind = WLDFeedSection.allCases[indexPath.section]
-        
-        var selectedPost: WLDArticle?
-        
-        switch sectionKind {
-        case .stories:
-            return // Handled by inner view delegate
-        case .spotlight:
-            selectedPost = posts[indexPath.item]
-        case .mosaic:
-            if indexPath.item + 3 < posts.count {
-                selectedPost = posts[indexPath.item + 3]
-            }
-        }
-        
-        if let post = selectedPost {
-            let detailVC = WLDArticleDetailViewController()
-            detailVC.post = post
-            detailVC.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(detailVC, animated: true)
-        }
+        let selectedPost = posts[indexPath.item]
+        let detailVC = WLDArticleDetailViewController()
+        detailVC.post = selectedPost
+        detailVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 
-    private func configureDataSource() {
-        collectionView.dataSource = self
-    }
-    
-    // Actions...
-    @objc private func didTapCamera() {
-        WLDAuthService.shared.ensureLoggedIn(on: self) { [weak self] in
-            let cameraVC = WLDCameraViewController()
-            cameraVC.modalPresentationStyle = .fullScreen
-            self?.present(cameraVC, animated: true)
-        }
-    }
-    
-    @objc private func didTapChat() {
-        WLDAuthService.shared.ensureLoggedIn(on: self) { [weak self] in
-            let chatListVC = WLDChatListViewController()
-            self?.navigationController?.pushViewController(chatListVC, animated: true)
-        }
-    }
-    
-    @objc private func didTapNotifications() {
-        let alert = UIAlertController(title: "Notifications", message: "No new notifications", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-    
-    // Delegates
-    func didSelectStory(name: String, isMyStory: Bool) {
-        if isMyStory {
-             didTapCamera() // Open camera for My Story
-        } else {
-             let vc = WLDStoryDetailViewController()
-             vc.storyName = name
-             vc.modalPresentationStyle = .fullScreen
-             present(vc, animated: true)
-        }
-    }
-    
-    func didTapUser(username: String, avatarURL: String) {
-        let profileVC = WLDProfileViewController()
-        profileVC.user = WLDProfile(id: "user_\(username)", username: username, email: "\(username.lowercased())@example.com", avatarURL: avatarURL, bio: "Reptile lover 🦎")
-        navigationController?.pushViewController(profileVC, animated: true)
-    }
-    
-    func didTapShare(post: WLDArticle, sourceView: UIView) {
-        // Build share content
-        var itemsToShare: [Any] = []
-        
-        // Add caption text
-        let shareText = "\(post.caption)\n\n- Shared from Keno 🦎"
-        itemsToShare.append(shareText)
-        
-        // Try to load and share the image
-        WLDBitmapFetcher.shared.loadImage(from: post.postImageURL) { [weak self] image in
-            guard let self = self else { return }
-            
-            if let image = image {
-                itemsToShare.append(image)
-            }
-            
-            // Create and present activity view controller
-            let activityVC = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
-            
-            // For iPad: set popover presentation
-            if let popover = activityVC.popoverPresentationController {
-                popover.sourceView = sourceView
-                popover.sourceRect = sourceView.bounds
-            }
-            
-            // Exclude some activity types if needed
-            activityVC.excludedActivityTypes = [
-                .addToReadingList,
-                .assignToContact,
-                .openInIBooks
-            ]
-            
-            self.present(activityVC, animated: true)
-        }
-    }
+    // Actions completely removed since no chat
 }
 
-// Cells
-class WLDMosaicCell: UICollectionViewCell {
-    private let imageView = UIImageView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.addSubview(imageView)
-        imageView.pin(to: contentView)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.backgroundColor = .gray
-    }
-    
-    func configure(with post: WLDArticle) {
-        WLDBitmapFetcher.shared.loadImage(from: post.postImageURL) { [weak self] img in
-            self?.imageView.image = img
-        }
-    }
-    required init?(coder: NSCoder) { fatalError() }
-}
-
-class WLDSpotlightCell: UICollectionViewCell {
-    weak var delegate: WLDArticleCellDelegate? // Reusing protocol
+// MARK: - Minimalist Staggered Cell
+class WLDStaggeredFeedCell: UICollectionViewCell {
     
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
-    private let avatarImageView = UIImageView()
-    private let playButtonImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(systemName: "play.fill")
-        iv.tintColor = .white
-        iv.contentMode = .scaleAspectFit
-        iv.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        iv.layer.cornerRadius = 25
-        iv.clipsToBounds = true
-        iv.isHidden = true
-        return iv
-    }()
-    
-    private var post: WLDArticle?
+    private let likesLabel = UILabel()
+    private let heartIcon = UIImageView()
+    private let playIcon = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = WLDAppConfig.Colors.cardBackground
-        contentView.layer.cornerRadius = 16
-        contentView.clipsToBounds = true
         
-        contentView.addSubview(imageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(avatarImageView)
-        contentView.addSubview(playButtonImageView)
+        contentView.backgroundColor = .clear
+        
+        // Image Container
+        let imageContainer = UIView()
+        imageContainer.layer.cornerRadius = 12
+        imageContainer.clipsToBounds = true
+        imageContainer.backgroundColor = WLDAppConfig.Colors.sand
+        imageContainer.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageContainer)
         
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        
-        avatarImageView.layer.cornerRadius = 20
-        avatarImageView.clipsToBounds = true
-        avatarImageView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapAvatar))
-        avatarImageView.addGestureRecognizer(tap)
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        playButtonImageView.translatesAutoresizingMaskIntoConstraints = false
+        imageContainer.addSubview(imageView)
         
+        // Text Info Container
+        let infoContainer = UIView()
+        infoContainer.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(infoContainer)
+        
+        titleLabel.font = WLDAppConfig.Fonts.title(size: 14) // Slightly smaller, bolder title
+        titleLabel.numberOfLines = 2
+        titleLabel.textColor = WLDAppConfig.Colors.textPrimary
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        infoContainer.addSubview(titleLabel)
+        
+        likesLabel.font = WLDAppConfig.Fonts.caption(size: 11)
+        likesLabel.textColor = WLDAppConfig.Colors.textSecondary
+        likesLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        heartIcon.image = UIImage(systemName: "heart")
+        heartIcon.tintColor = WLDAppConfig.Colors.textSecondary
+        heartIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        playIcon.image = UIImage(systemName: "play.circle.fill")
+        playIcon.tintColor = UIColor(white: 1.0, alpha: 0.8)
+        playIcon.translatesAutoresizingMaskIntoConstraints = false
+        playIcon.isHidden = true
+        imageContainer.addSubview(playIcon)
+        
+        let likesStack = UIStackView(arrangedSubviews: [heartIcon, likesLabel])
+        likesStack.axis = .horizontal
+        likesStack.spacing = 3
+        likesStack.alignment = .center
+        likesStack.translatesAutoresizingMaskIntoConstraints = false
+        infoContainer.addSubview(likesStack)
+        
+        // Layout Constraints
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.8), // 80% image
+            imageContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageContainer.bottomAnchor.constraint(equalTo: infoContainer.topAnchor, constant: -8),
             
-            avatarImageView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
-            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 40),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 40),
+            imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor),
             
-            titleLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 12),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            infoContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            infoContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            infoContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            infoContainer.heightAnchor.constraint(equalToConstant: 52), // Text area height
             
-            playButtonImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            playButtonImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
-            playButtonImageView.widthAnchor.constraint(equalToConstant: 50),
-            playButtonImageView.heightAnchor.constraint(equalToConstant: 50)
+            titleLabel.topAnchor.constraint(equalTo: infoContainer.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: infoContainer.trailingAnchor),
+            
+            likesStack.bottomAnchor.constraint(equalTo: infoContainer.bottomAnchor, constant: -4),
+            likesStack.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor),
+            
+            heartIcon.widthAnchor.constraint(equalToConstant: 12),
+            heartIcon.heightAnchor.constraint(equalToConstant: 12),
+            
+            playIcon.centerXAnchor.constraint(equalTo: imageContainer.centerXAnchor),
+            playIcon.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor),
+            playIcon.widthAnchor.constraint(equalToConstant: 36),
+            playIcon.heightAnchor.constraint(equalToConstant: 36)
         ])
     }
     
     func configure(with post: WLDArticle) {
-        self.post = post
-        titleLabel.text = post.caption
-        playButtonImageView.isHidden = post.videoName == nil
+        titleLabel.text = post.caption.components(separatedBy: " #").first // Get text before tags
+        
+        let isLiked = UserDefaults.standard.bool(forKey: "post_liked_\(post.id)")
+        let totalLikes = isLiked ? post.likes + 1 : post.likes
+        likesLabel.text = "\(totalLikes)"
+        
+        heartIcon.image = UIImage(systemName: isLiked ? "heart.fill" : "heart")
+        heartIcon.tintColor = isLiked ? .systemRed : WLDAppConfig.Colors.textSecondary
+        
+        if let videoName = post.videoName, !videoName.isEmpty {
+            playIcon.isHidden = false
+        } else {
+            playIcon.isHidden = true
+        }
+        
         WLDBitmapFetcher.shared.loadImage(from: post.postImageURL) { [weak self] img in self?.imageView.image = img }
-        WLDBitmapFetcher.shared.loadImage(from: post.userAvatarURL) { [weak self] img in self?.avatarImageView.image = img }
-    }
-    
-    @objc private func didTapAvatar() {
-        guard let post = post else { return }
-        delegate?.didTapUser(username: post.username, avatarURL: post.userAvatarURL)
     }
     
     required init?(coder: NSCoder) { fatalError() }
+}
+import UIKit
+
+protocol StaggeredGridLayoutDelegate: AnyObject {
+    func collectionView(_ collectionView: UICollectionView, heightForItemAt indexPath: IndexPath, with width: CGFloat) -> CGFloat
+}
+
+class StaggeredGridLayout: UICollectionViewLayout {
+    weak var delegate: StaggeredGridLayoutDelegate?
+    
+    private let numberOfColumns = 2
+    private let cellPadding: CGFloat = 6
+    
+    private var cache: [UICollectionViewLayoutAttributes] = []
+    
+    private var contentHeight: CGFloat = 0
+    private var contentWidth: CGFloat {
+        guard let collectionView = collectionView else { return 0 }
+        let insets = collectionView.contentInset
+        return collectionView.bounds.width - (insets.left + insets.right)
+    }
+    
+    override var collectionViewContentSize: CGSize {
+        return CGSize(width: contentWidth, height: contentHeight)
+    }
+    
+    override func prepare() {
+        super.prepare()
+        guard let collectionView = collectionView, cache.isEmpty else { return }
+        
+        let columnWidth = contentWidth / CGFloat(numberOfColumns)
+        var xOffset: [CGFloat] = []
+        for column in 0..<numberOfColumns {
+            xOffset.append(CGFloat(column) * columnWidth)
+        }
+        var column = 0
+        var yOffset: [CGFloat] = .init(repeating: 0, count: numberOfColumns)
+        
+        for item in 0..<collectionView.numberOfItems(inSection: 0) {
+            let indexPath = IndexPath(item: item, section: 0)
+            
+            let photoHeight = delegate?.collectionView(collectionView, heightForItemAt: indexPath, with: columnWidth) ?? 200
+            let height = cellPadding * 2 + photoHeight
+            
+            // Find shortest column
+            column = 0
+            var shortestHeight = yOffset[0]
+            for (idx, y) in yOffset.enumerated() {
+                if y < shortestHeight {
+                    shortestHeight = y
+                    column = idx
+                }
+            }
+            
+            let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
+            let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+            
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+            attributes.frame = insetFrame
+            cache.append(attributes)
+            
+            contentHeight = max(contentHeight, frame.maxY)
+            yOffset[column] = yOffset[column] + height
+        }
+    }
+    
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        var visibleLayoutAttributes: [UICollectionViewLayoutAttributes] = []
+        for attributes in cache {
+            if attributes.frame.intersects(rect) {
+                visibleLayoutAttributes.append(attributes)
+            }
+        }
+        return visibleLayoutAttributes
+    }
+    
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return cache[indexPath.item]
+    }
+    
+    override func invalidateLayout() {
+        super.invalidateLayout()
+        cache.removeAll()
+        contentHeight = 0
+    }
 }

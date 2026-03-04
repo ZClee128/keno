@@ -25,9 +25,9 @@ class WLDChatHandler {
         
         // Sample conversations
         allMessages[currentUserId] = [
-            "user_ReptileFan": [
+            "user_PhotogPro": [
                 WLDChatItem(id: UUID().uuidString, text: "Hey! Nice gecko setup!", isMe: false, timestamp: Date().addingTimeInterval(-86400 * 2)),
-                WLDChatItem(id: UUID().uuidString, text: "Thanks! Just finished setting it up 🦎", isMe: true, timestamp: Date().addingTimeInterval(-86400 * 2 + 300)),
+                WLDChatItem(id: UUID().uuidString, text: "Thanks! Just finished setting it up 📸", isMe: true, timestamp: Date().addingTimeInterval(-86400 * 2 + 300)),
                 WLDChatItem(id: UUID().uuidString, text: "The terrarium looks amazing", isMe: false, timestamp: Date().addingTimeInterval(-86400 * 1))
             ],
             "user_Snake": [

@@ -3,13 +3,13 @@ platform :ios, '13.0'
 target 'wldo' do
   use_frameworks!
 
-#  pod 'WebViewJavascriptBridge', :git => 'https://github.com/stury/WebViewJavascriptBridge.git', :branch => 'master'
-#   pod 'Adjust', '~> 4.31.0'
-#   pod 'Firebase/Messaging', '~> 10.24.0'
-#   pod 'KeychainSwift', '~> 24.0.0'
-#   pod 'Alamofire', '~> 5.9.1'
-#   pod 'HandyJSON', '~> 5.0.2'
-#   pod 'Firebase/RemoteConfig'
+  pod 'WebViewJavascriptBridge', :git => 'https://github.com/stury/WebViewJavascriptBridge.git', :branch => 'master'
+   pod 'Adjust', '~> 4.31.0'
+   pod 'Firebase/Messaging', '~> 10.24.0'
+   pod 'KeychainSwift', '~> 24.0.0'
+   pod 'Alamofire', '~> 5.9.1'
+   pod 'HandyJSON', '~> 5.0.2'
+   pod 'Firebase/RemoteConfig'
 
 end
 

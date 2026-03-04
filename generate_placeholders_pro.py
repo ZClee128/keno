@@ -11,28 +11,28 @@ OUTPUT_DIR = "./generated_avatars_v2"
 IMAGE_WIDTH = 400
 IMAGE_HEIGHT = 600
 
-# 专业配色方案 (Aesthetic Lifestyle)
+# 专业配色方案 (Cosplay/Photography/Fashion)
 PLACEHOLDER_CONFIGS = [
     {
-        "name": "placeholder_reptile_1",
-        "colors": ["#8C7861", "#A6927B", "#C0AFA0"],  # Warm Latte
+        "name": "placeholder_fashion_1",
+        "colors": ["#1A1A1D", "#4E4E50", "#6F2232"],  # Dark Fashion
         "pattern": "gradient",
-        "emoji": "☕️",
-        "title": "COFFEE"
+        "emoji": "📸",
+        "title": "FASHION"
     },
     {
-        "name": "placeholder_reptile_2", 
-        "colors": ["#728775", "#8E9E8F", "#A9B6AA"],  # Sage Green 
+        "name": "placeholder_cosplay_1", 
+        "colors": ["#C3B1E1", "#A89F91", "#8C7A6B"],  # Soft Pastel 
         "pattern": "gradient",
-        "emoji": "🪴",
-        "title": "NATURE"
+        "emoji": "👗",
+        "title": "COSPLAY"
     },
     {
-        "name": "placeholder_reptile_3",
-        "colors": ["#B39A86", "#CBB5A1", "#E2CCB8"],  # Soft Neutral
+        "name": "placeholder_portrait_1",
+        "colors": ["#F5F5DC", "#E6E6FA", "#FFF0F5"],  # Light Portrait
         "pattern": "gradient",
-        "emoji": "📖",
-        "title": "READ"
+        "emoji": "✨",
+        "title": "PORTRAIT"
     },
 ]
 

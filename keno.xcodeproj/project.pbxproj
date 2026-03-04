@@ -8,6 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		43EFB520B38564990EE27CE2 /* Pods_wldo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8EAD53C3E270DF0F06D46D /* Pods_wldo.framework */; };
+		847203552F5825FD004C856B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 847203542F5825FD004C856B /* GoogleService-Info.plist */; };
+		84C7EE7C2F57FA91007CB50F /* cosplay_2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84C7EE7A2F57FA91007CB50F /* cosplay_2.jpeg */; };
+		84C7EE7D2F57FA91007CB50F /* cosplay_1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84C7EE792F57FA91007CB50F /* cosplay_1.mp4 */; };
+		84C7EE7E2F57FA91007CB50F /* cosplay_2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84C7EE7B2F57FA91007CB50F /* cosplay_2.mp4 */; };
+		84C7EE7F2F57FA91007CB50F /* cosplay_1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84C7EE782F57FA91007CB50F /* cosplay_1.jpeg */; };
+		84C7EEB82F582191007CB50F /* AppPermissionTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEAF2F582191007CB50F /* AppPermissionTool.swift */; };
+		84C7EEB92F582191007CB50F /* WaitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEB72F582191007CB50F /* WaitViewController.swift */; };
+		84C7EEBA2F582191007CB50F /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEAC2F582191007CB50F /* AppConfig.swift */; };
+		84C7EEBB2F582191007CB50F /* AppleIAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEAE2F582191007CB50F /* AppleIAPManager.swift */; };
+		84C7EEBC2F582191007CB50F /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEB62F582191007CB50F /* ProgressHUD.swift */; };
+		84C7EEBD2F582191007CB50F /* AppWebViewHandleEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEB32F582191007CB50F /* AppWebViewHandleEvent.swift */; };
+		84C7EEBE2F582191007CB50F /* AppRequestTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEB12F582191007CB50F /* AppRequestTool.swift */; };
+		84C7EEBF2F582191007CB50F /* AppWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEB22F582191007CB50F /* AppWebViewController.swift */; };
+		84C7EEC02F582191007CB50F /* AppAdjustManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEAB2F582191007CB50F /* AppAdjustManager.swift */; };
+		84C7EEC12F582191007CB50F /* AppWebViewScriptDelegateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEB42F582191007CB50F /* AppWebViewScriptDelegateHandler.swift */; };
+		84C7EEC22F582191007CB50F /* AppRequestBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEB02F582191007CB50F /* AppRequestBaseModel.swift */; };
+		84C7EEC32F582191007CB50F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEAD2F582191007CB50F /* AppDelegate.swift */; };
+		84C7EEC42F582191007CB50F /* LocalPushScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EEB52F582191007CB50F /* LocalPushScheduler.swift */; };
 		84CFB3662F371D9D00FEE893 /* WLDLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3252F371D9D00FEE893 /* WLDLoginView.swift */; };
 		84CFB3672F371D9D00FEE893 /* WLDPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3262F371D9D00FEE893 /* WLDPolicyViewController.swift */; };
 		84CFB3682F371D9D00FEE893 /* WLDRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3272F371D9D00FEE893 /* WLDRegisterViewController.swift */; };
@@ -45,17 +63,30 @@
 		84CFB3882F371D9D00FEE893 /* WLDProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3542F371D9D00FEE893 /* WLDProfileHeaderView.swift */; };
 		84CFB3892F371D9D00FEE893 /* WLDArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3562F371D9D00FEE893 /* WLDArticleCell.swift */; };
 		84CFB38A2F371D9D00FEE893 /* WLDVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3572F371D9D00FEE893 /* WLDVideoPlayerView.swift */; };
-		84CFB38B2F371D9D00FEE893 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB35E2F371D9D00FEE893 /* AppDelegate.swift */; };
-		84CFB38D2F371D9D00FEE893 /* resource_img_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35A2F371D9D00FEE893 /* resource_img_01.jpg */; };
-		84CFB38E2F371D9D00FEE893 /* resource_vid_01.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35B2F371D9D00FEE893 /* resource_vid_01.mp4 */; };
-		84CFB38F2F371D9D00FEE893 /* resource_img_02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35C2F371D9D00FEE893 /* resource_img_02.jpg */; };
-		84CFB3902F371D9D00FEE893 /* resource_vid_02.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35D2F371D9D00FEE893 /* resource_vid_02.mp4 */; };
 		84CFB3912F371D9D00FEE893 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB35F2F371D9D00FEE893 /* Assets.xcassets */; };
 		84CFB3932F371D9D00FEE893 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB3632F371D9D00FEE893 /* LaunchScreen.storyboard */; };
 		84D221D52F28B87B009D2E99 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D221D42F28B87B009D2E99 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		847203542F5825FD004C856B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84C7EE782F57FA91007CB50F /* cosplay_1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cosplay_1.jpeg; sourceTree = "<group>"; };
+		84C7EE792F57FA91007CB50F /* cosplay_1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cosplay_1.mp4; sourceTree = "<group>"; };
+		84C7EE7A2F57FA91007CB50F /* cosplay_2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cosplay_2.jpeg; sourceTree = "<group>"; };
+		84C7EE7B2F57FA91007CB50F /* cosplay_2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cosplay_2.mp4; sourceTree = "<group>"; };
+		84C7EEAB2F582191007CB50F /* AppAdjustManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAdjustManager.swift; sourceTree = "<group>"; };
+		84C7EEAC2F582191007CB50F /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		84C7EEAD2F582191007CB50F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		84C7EEAE2F582191007CB50F /* AppleIAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleIAPManager.swift; sourceTree = "<group>"; };
+		84C7EEAF2F582191007CB50F /* AppPermissionTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPermissionTool.swift; sourceTree = "<group>"; };
+		84C7EEB02F582191007CB50F /* AppRequestBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRequestBaseModel.swift; sourceTree = "<group>"; };
+		84C7EEB12F582191007CB50F /* AppRequestTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRequestTool.swift; sourceTree = "<group>"; };
+		84C7EEB22F582191007CB50F /* AppWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWebViewController.swift; sourceTree = "<group>"; };
+		84C7EEB32F582191007CB50F /* AppWebViewHandleEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWebViewHandleEvent.swift; sourceTree = "<group>"; };
+		84C7EEB42F582191007CB50F /* AppWebViewScriptDelegateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWebViewScriptDelegateHandler.swift; sourceTree = "<group>"; };
+		84C7EEB52F582191007CB50F /* LocalPushScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalPushScheduler.swift; sourceTree = "<group>"; };
+		84C7EEB62F582191007CB50F /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
+		84C7EEB72F582191007CB50F /* WaitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitViewController.swift; sourceTree = "<group>"; };
 		84CFB3252F371D9D00FEE893 /* WLDLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLDLoginView.swift; sourceTree = "<group>"; };
 		84CFB3262F371D9D00FEE893 /* WLDPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLDPolicyViewController.swift; sourceTree = "<group>"; };
 		84CFB3272F371D9D00FEE893 /* WLDRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLDRegisterViewController.swift; sourceTree = "<group>"; };
@@ -93,11 +124,6 @@
 		84CFB3542F371D9D00FEE893 /* WLDProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLDProfileHeaderView.swift; sourceTree = "<group>"; };
 		84CFB3562F371D9D00FEE893 /* WLDArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLDArticleCell.swift; sourceTree = "<group>"; };
 		84CFB3572F371D9D00FEE893 /* WLDVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLDVideoPlayerView.swift; sourceTree = "<group>"; };
-		84CFB35A2F371D9D00FEE893 /* resource_img_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = resource_img_01.jpg; sourceTree = "<group>"; };
-		84CFB35B2F371D9D00FEE893 /* resource_vid_01.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = resource_vid_01.mp4; sourceTree = "<group>"; };
-		84CFB35C2F371D9D00FEE893 /* resource_img_02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = resource_img_02.jpg; sourceTree = "<group>"; };
-		84CFB35D2F371D9D00FEE893 /* resource_vid_02.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = resource_vid_02.mp4; sourceTree = "<group>"; };
-		84CFB35E2F371D9D00FEE893 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84CFB35F2F371D9D00FEE893 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84CFB3602F371D9D00FEE893 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84CFB3612F371D9D00FEE893 /* wldo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wldo.entitlements; sourceTree = "<group>"; };
@@ -122,6 +148,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84C7EEAA2F582178007CB50F /* cc */ = {
+			isa = PBXGroup;
+			children = (
+				84C7EEAB2F582191007CB50F /* AppAdjustManager.swift */,
+				84C7EEAC2F582191007CB50F /* AppConfig.swift */,
+				84C7EEAD2F582191007CB50F /* AppDelegate.swift */,
+				84C7EEAE2F582191007CB50F /* AppleIAPManager.swift */,
+				84C7EEAF2F582191007CB50F /* AppPermissionTool.swift */,
+				84C7EEB02F582191007CB50F /* AppRequestBaseModel.swift */,
+				84C7EEB12F582191007CB50F /* AppRequestTool.swift */,
+				84C7EEB22F582191007CB50F /* AppWebViewController.swift */,
+				84C7EEB32F582191007CB50F /* AppWebViewHandleEvent.swift */,
+				84C7EEB42F582191007CB50F /* AppWebViewScriptDelegateHandler.swift */,
+				84C7EEB52F582191007CB50F /* LocalPushScheduler.swift */,
+				84C7EEB62F582191007CB50F /* ProgressHUD.swift */,
+				84C7EEB72F582191007CB50F /* WaitViewController.swift */,
+			);
+			path = cc;
+			sourceTree = "<group>";
+		};
 		84CFB3282F371D9D00FEE893 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +328,10 @@
 				84CFB3492F371D9D00FEE893 /* Services */,
 				84CFB34D2F371D9D00FEE893 /* Utils */,
 				84CFB3582F371D9D00FEE893 /* Views */,
+				84C7EE782F57FA91007CB50F /* cosplay_1.jpeg */,
+				84C7EE792F57FA91007CB50F /* cosplay_1.mp4 */,
+				84C7EE7A2F57FA91007CB50F /* cosplay_2.jpeg */,
+				84C7EE7B2F57FA91007CB50F /* cosplay_2.mp4 */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -289,12 +339,9 @@
 		84CFB3652F371D9D00FEE893 /* wldo */ = {
 			isa = PBXGroup;
 			children = (
+				847203542F5825FD004C856B /* GoogleService-Info.plist */,
+				84C7EEAA2F582178007CB50F /* cc */,
 				84CFB3592F371D9D00FEE893 /* Source */,
-				84CFB35A2F371D9D00FEE893 /* resource_img_01.jpg */,
-				84CFB35B2F371D9D00FEE893 /* resource_vid_01.mp4 */,
-				84CFB35C2F371D9D00FEE893 /* resource_img_02.jpg */,
-				84CFB35D2F371D9D00FEE893 /* resource_vid_02.mp4 */,
-				84CFB35E2F371D9D00FEE893 /* AppDelegate.swift */,
 				84CFB35F2F371D9D00FEE893 /* Assets.xcassets */,
 				84CFB3602F371D9D00FEE893 /* Info.plist */,
 				84CFB3612F371D9D00FEE893 /* wldo.entitlements */,
@@ -350,6 +397,7 @@
 				84D2214E2F287629009D2E99 /* Sources */,
 				84D2214F2F287629009D2E99 /* Frameworks */,
 				84D221502F287629009D2E99 /* Resources */,
+				83DFBC16424A58A4C3236CF1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -398,12 +446,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84CFB38D2F371D9D00FEE893 /* resource_img_01.jpg in Resources */,
-				84CFB38E2F371D9D00FEE893 /* resource_vid_01.mp4 in Resources */,
-				84CFB38F2F371D9D00FEE893 /* resource_img_02.jpg in Resources */,
-				84CFB3902F371D9D00FEE893 /* resource_vid_02.mp4 in Resources */,
 				84CFB3912F371D9D00FEE893 /* Assets.xcassets in Resources */,
 				84CFB3932F371D9D00FEE893 /* LaunchScreen.storyboard in Resources */,
+				84C7EE7C2F57FA91007CB50F /* cosplay_2.jpeg in Resources */,
+				84C7EE7D2F57FA91007CB50F /* cosplay_1.mp4 in Resources */,
+				84C7EE7E2F57FA91007CB50F /* cosplay_2.mp4 in Resources */,
+				84C7EE7F2F57FA91007CB50F /* cosplay_1.jpeg in Resources */,
+				847203552F5825FD004C856B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +479,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83DFBC16424A58A4C3236CF1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wldo/Pods-wldo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wldo/Pods-wldo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wldo/Pods-wldo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -472,11 +542,23 @@
 				84CFB3842F371D9D00FEE893 /* WLDChatListCell.swift in Sources */,
 				84CFB3852F371D9D00FEE893 /* WLDChatItemCell.swift in Sources */,
 				84CFB3862F371D9D00FEE893 /* WLDStoriesView.swift in Sources */,
+				84C7EEB82F582191007CB50F /* AppPermissionTool.swift in Sources */,
+				84C7EEB92F582191007CB50F /* WaitViewController.swift in Sources */,
+				84C7EEBA2F582191007CB50F /* AppConfig.swift in Sources */,
+				84C7EEBB2F582191007CB50F /* AppleIAPManager.swift in Sources */,
+				84C7EEBC2F582191007CB50F /* ProgressHUD.swift in Sources */,
+				84C7EEBD2F582191007CB50F /* AppWebViewHandleEvent.swift in Sources */,
+				84C7EEBE2F582191007CB50F /* AppRequestTool.swift in Sources */,
+				84C7EEBF2F582191007CB50F /* AppWebViewController.swift in Sources */,
+				84C7EEC02F582191007CB50F /* AppAdjustManager.swift in Sources */,
+				84C7EEC12F582191007CB50F /* AppWebViewScriptDelegateHandler.swift in Sources */,
+				84C7EEC22F582191007CB50F /* AppRequestBaseModel.swift in Sources */,
+				84C7EEC32F582191007CB50F /* AppDelegate.swift in Sources */,
+				84C7EEC42F582191007CB50F /* LocalPushScheduler.swift in Sources */,
 				84CFB3872F371D9D00FEE893 /* WLDPhotoGridCell.swift in Sources */,
 				84CFB3882F371D9D00FEE893 /* WLDProfileHeaderView.swift in Sources */,
 				84CFB3892F371D9D00FEE893 /* WLDArticleCell.swift in Sources */,
 				84CFB38A2F371D9D00FEE893 /* WLDVideoPlayerView.swift in Sources */,
-				84CFB38B2F371D9D00FEE893 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,12 +585,16 @@
 				CODE_SIGN_ENTITLEMENTS = wldo/wldo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = X4ZJV9JMDU;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = wldo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Keno;
+				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "Keno needs access to add conventions to your calendar.";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Keno needs access to add conventions to your calendar.";
+				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "Keno needs access to add conventions to your calendar.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to the camera for capturing and sharing your daily lifestyle moments.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs access to the microphone for recording audio for your lifestyle video posts.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app requires access to add new photos to your library, enabling you to save photos directly from the app.";
@@ -551,12 +637,16 @@
 				CODE_SIGN_ENTITLEMENTS = wldo/wldo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = X4ZJV9JMDU;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = wldo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Keno;
+				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "Keno needs access to add conventions to your calendar.";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Keno needs access to add conventions to your calendar.";
+				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "Keno needs access to add conventions to your calendar.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to the camera for capturing and sharing your daily lifestyle moments.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs access to the microphone for recording audio for your lifestyle video posts.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app requires access to add new photos to your library, enabling you to save photos directly from the app.";
